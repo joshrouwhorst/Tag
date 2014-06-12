@@ -7,14 +7,22 @@ document.getElementById("game").appendChild(canvas);
 
 
 var then = Date.now();
+var level = new Level();
+var players = new Players();
 
 var init = function(){
+	level.init();
+	players.init();
 }
 
 var update = function(){
+	
+	level.update();
+	socket.emit("updatePlayers"); //update players ie: players.update()
 }
 
 var draw = function(){
+	level.draw(ctx);
 }
 
 //game loop
