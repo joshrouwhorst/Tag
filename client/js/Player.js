@@ -1,5 +1,6 @@
 var Players = function(){
-  var noop = function(){ return null; };
+  var noop = function(){ return null; },
+      players = this;
 
   this.init = function(){
     socket.emit('updatePlayers');
@@ -15,7 +16,7 @@ var Players = function(){
         currentPlayer;
 
     for ( var i = 0; i < data.length; i++ ){
-      players.push( new Player( data[i] ) );
+      players.push( new players.Player( data[i] ) );
       //Find logged in player and keep track of them.
 
       if ( playerData[i].isUser ){
@@ -30,7 +31,7 @@ var Players = function(){
     return players;
   };
 
-  var Player = function( properties ){
+  this.Player = function( properties ){
     var that = this;
 
     this.init = noop;
