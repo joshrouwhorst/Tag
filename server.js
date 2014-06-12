@@ -7,11 +7,10 @@ var bobby = "stuff";
 //start server
 server.listen(process.env.PORT || 3000);
 
-io.sockets.on('connection', function(client) {
+io.sockets.on('connection', function(socket) {
    var connection = this;
-
-   client.on('addOneToMe', function(number) {
-      client.emit('serverResponse', bobby + number);
+   socket.on('addOneToMe', function(number) {
+      socket.emit('serverResponse', number*1 + 1);
    });
 });
 
