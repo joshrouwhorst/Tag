@@ -41,11 +41,11 @@ io.sockets.on('connection', function(socket) {
    });
 });
 
-function socketBroadcast(emit_key, message) {
+function socketBroadcast(emitKey, message) {
    var playerKeys = Object.keys(players);
    _.each(playerKeys, function(key) {
       var player = players[key];
-      player.socket.emit(emit_key, message);
+      player.socket.emit(emitKey, message);
    });
 }
 
