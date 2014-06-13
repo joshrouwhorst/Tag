@@ -39,6 +39,7 @@ var Sounds = function () {
             }, false);
             gameNormalMusic.addEventListener('canplaythrough', function () {
                 self.gameNormalMusicLoaded = true;
+                this.play();
             }, false);
             gameNormalMusic.setAttribute("src", base_dir_music + "game-loop-normal.mp3");
             gameNormalMusic.load();
