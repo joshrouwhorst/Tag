@@ -8,7 +8,7 @@ var Graphics = function () {
         
         //Grass block
         var grassReady = false;
-        var grass = new Image();
+        this.grass = new Image();
         grass.onload = function () {
             grassReady = true;
         };
@@ -16,7 +16,7 @@ var Graphics = function () {
 
         //Overgrown grass block
         var grassOvergrownReady = false;
-        var grassOvergrown = new Image();
+        this.grassOvergrown = new Image();
         grassOvergrown.onload = function () {
             grassOvergrownReady = true;
         };
@@ -24,7 +24,7 @@ var Graphics = function () {
 
         //Boundary
         var boundaryWallReady = false;
-        var boundaryWall = new Image();
+        this.boundaryWall = new Image();
         boundaryWall.onload = function () {
             boundaryWallReady = true;
         };
@@ -32,7 +32,7 @@ var Graphics = function () {
 
         //Walls
         var wallReady = false;
-        var wall = new Image();
+        this.wall = new Image();
         wall.onload = function () {
             wallReady = true;
         };
@@ -70,7 +70,7 @@ var Graphics = function () {
 
         //Player normal
         var playerNormalReady = false;
-        var playerNormal = new Image();
+        this.playerNormal = new Image();
         playerNormal.onload = function () {
             playerNormalReady = true;
         };
@@ -78,7 +78,7 @@ var Graphics = function () {
 
         //Player "it"
         var playerItReady = false;
-        var playerIt = new Image();
+        this.playerIt = new Image();
         playerIt.onload = function () {
             playerItReady = true;
         };
@@ -86,7 +86,7 @@ var Graphics = function () {
 
         //Opponent normal
         var opponentNormalReady = false;
-        var opponentNormal = new Image();
+        this.opponentNormal = new Image();
         opponentNormal.onload = function () {
             opponentNormalReady = true;
         };
@@ -94,7 +94,7 @@ var Graphics = function () {
 
         //Opponent "it"
         var opponentItReady = false;
-        var opponentIt = new Image();
+        this.opponentIt = new Image();
         opponentIt.onload = function () {
             opponentItReady = true;
         };
