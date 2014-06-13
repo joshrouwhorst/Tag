@@ -60,6 +60,36 @@ io.sockets.on('connection', function(socket) {
       players[socket.id].moveRight();
       console.log(players[socket.id].getSocketSafe());
    });
+
+   socket.on('tryTag', function() {
+      //Make sure player is actually tagged (it) and it's tag timer is 0
+      if(socket.isTagged && socket.tagTimer <= 0){
+         var pList = getPlayersAsList();
+         var aLeg = 0;
+         var bLeg = 0;
+         var cLeg = 0;
+
+         //loop through the list
+         _each(pList, function(player){
+            //Make sure the player is not itself
+            if (socket.id != player.id){
+               //Trig! - find Hypotenuse (distance)
+               aleg = player.x - socket.x;
+               bLeg = player.y - socket.y;
+               cLeg = Math.sqrt(Math.pow(aLeg, 2) + Math.pow(bLeg, 2));
+
+               //check distance (<= than player radius)
+               if (cLeg <= socket.radius){
+                  //Current player no longer it
+                  socket.isTagged = false;
+
+                  //Target player is now it!
+                  player.isTagged = true;
+               }
+            }
+         });
+      }
+   });
 });
 
 function socketBroadcast(emitKey, message, callback) {

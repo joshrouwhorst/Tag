@@ -6,6 +6,9 @@ function Player(id, socket, name) {
     this.name = name || "Anonymous";
     this.x = Math.random() * BOARD_SETTINGS.maxX * BOARD_SETTINGS.tileSize;
     this.y = Math.random() * BOARD_SETTINGS.maxY * BOARD_SETTINGS.tileSize;
+    this.radius = Math.floor(BOARD_SETTINGS.tileSize / 2);
+    this.isTagged = false;
+    this.tagTimer = 0;
     this.socket = socket;
     this.speed = 5;
 
@@ -36,12 +39,6 @@ function Player(id, socket, name) {
     //player trying to move left
     this.moveLeft = function() {
         return this.movePlayerPosition(self.x - self.speed, self.y);
-    }
-
-    //player trying to tag
-    this.pressedTag = function () {
-        //figure out if player is touching another player
-        return false;
     }
 
     //Calculate coordinate player is trying to move to
