@@ -13,22 +13,6 @@ var lx = 0, ly = 0;
 var viewport = new Camera();
 
 var graphics = new Graphics();
-var myPlayerId = -1;
-var players = {};
-
-function getPlayersAsList() {
-	var playerKeys = Object.keys(players);
-	var pList = [];
-	_.each(playerKeys, function(key) {
-		var player = players[key];
-		pList.push(player.getSocketSafe());
-	});
-	return pList;
-}
-
-function getMyPlayer() {
-	return players[myPlayerId];
-}
 
 var init = function(){
 	graphics.init();
@@ -53,10 +37,6 @@ var draw = function () {
     viewport.setFocus(0, ly);
 
 	level.draw(ctx, viewport);
-	var pList = getPlayersAsList();
-	_.each(pList, function(player) {
-		player.draw(ctx);
-	});
 }
 
 //game loop
@@ -69,4 +49,3 @@ var main = function () {
 
 	then = now;
 };
-

@@ -6,23 +6,21 @@ socket.on('whatsYoName', function() {
 
 //someone connected
 socket.on('welcome', function(player) {
-   console.log(player.name + " has connected!");
+ console.log(player.name + " has connected!");
 });
 
 //someone left
 socket.on('left', function(name) {
-   console.log(name + " has left!");
+ console.log(name + " has left!");
 });
 
 //server sent players
 socket.on('updatedPlayers', function(data){
-  for(var i = 0; i < players.length; i++) {
-    players[i].update(data.x, data.y);
-  }
+  Players.update(data);
 });
 
 socket.on("heresTheLevel", function (data) {
-    level.init(data);
-    init();
+  level.init(data);
+  init();
     setInterval(main, (1000 / 60)); //60 FPS
-});
+  });

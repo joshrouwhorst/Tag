@@ -8,15 +8,6 @@ function Player(id, socket, name) {
    this.y = Math.random() * BOARD_SETTINGS.maxY;
    this.socket = socket;
 
-   this.getSocketSafeNoId = function() {
-      return {
-         id: -1,
-         name: self.name,
-         x: self.x,
-         y: self.y
-      }
-   }
-
    this.getSocketSafe = function() {
       return {
          id: self.id,
