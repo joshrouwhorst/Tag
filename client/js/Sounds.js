@@ -4,7 +4,7 @@ var Sounds = function () {
     //Music
 
     this.Music = function () {
-        var base_dir_music = "../sounds/music/";
+        var base_dir_music = "../client/sounds/music/";
         var menuMusic;
         var gameNormalMusic;
         var gameItMusic;
@@ -58,7 +58,7 @@ var Sounds = function () {
     //FX
 
     this.FX = function () {
-        var base_dir_fx = "../sounds/fx/"; 
+        var base_dir_fx = "../client/sounds/fx/";
         var taggedPlayerSFX;
         var taggedOpponentSFX
         var collisionSFX;

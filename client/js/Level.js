@@ -27,7 +27,7 @@ var Level = function(){
 		}
 	}
 
-	this.drawPlayers = function(ctx){
+	this.drawPlayers = function(ctx, camera) {
 		for(var x = 0; x <= this.TileX; x++){
 			for(var y = 0; y <= this.TileY; y++){
 				if(this.LevelMap[x][y] instanceof Player){ //Made Player a global class

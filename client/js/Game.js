@@ -9,12 +9,16 @@ var then = Date.now();
 var level = new Level();
 var userInput = new UserInput();
 
+var lx = 0, ly = 0;
+var viewport = new Camera();
+
 var graphics = new Graphics();
 var players = [];
 
 var init = function(){
 	graphics.init();
 	userInput.init();
+	viewport.init(canvas.width, canvas.height, level.LevelMap[0].length, level.LevelMap.length);
 }
 
 var update = function(){
@@ -24,19 +28,12 @@ var update = function(){
 }
 
 var draw = function(){
-    if (level.loaded) {
-        if (viewport == null) {
-            viewport = new Camera();
-            viewport.init(canvas.width, canvas.height, self.LevelMap[0].length, self.LevelMap.length);
-            var lx = 0, ly = 0;
-        }
-        viewport.setFocus(lx, ly);
-        lx++;
-        ly++;
-        level.draw(ctx, viewport);
-        for (var i = 0; i < players.length; i++) {
-            players[i].draw(ctx);
-        }
+    viewport.setFocus(lx, ly);
+    lx++;
+    ly++;
+    level.draw(ctx, viewport);
+    for (var i = 0; i < players.length; i++) {
+        players[i].draw(ctx);
     }
 }
 
@@ -51,5 +48,3 @@ var main = function () {
 	then = now;
 };
 
-init();
-setInterval(main, (1000 / 60)); //60 FPS

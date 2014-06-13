@@ -21,6 +21,8 @@ socket.on('updatedPlayers', function(data){
   }
 });
 
-socket.on("heresTheLevel", function(data){
-  level.init(data);
+socket.on("heresTheLevel", function (data) {
+    level.init(data);
+    init();
+    setInterval(main, (1000 / 60)); //60 FPS
 });
