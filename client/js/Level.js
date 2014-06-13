@@ -1,32 +1,29 @@
 var Level = function(){
-	this.LevelMap = new Array();
-	this.PlayerMap = new Array();
+	self = this;
+	this.LevelMap = [];
+	this.PlayerMap = [];
 	this.TileSize = 32;
+	this.loaded = false;
 
 	this.init = function(map) {
-		this.LevelMap = map;
+		self.LevelMap = map;
+		self.loaded = true;
 	}
 
-	/*this.placePlayers = function(){
-		for(var i = 0; i <= players.length; i++){
-			var coord = players[i].getPosition();
-			this.PlayerMap[coord.x][coord.y] = player;
-		}
-	}*/
-
 	this.update = function(){
-		//this.placePlayers();
 	}
 
 	this.drawLevel = function(ctx){
-		for(var x = 0; x <= this.TileX; x++){
-			for(var y = 0; y <= this.TileY; y++){
-				if(this.LevelMap[x][y] == "w"){
-					ctx.fillStyle = "black";
-				}else{
-					ctx.fillStyle = "gray";
-				}
-				ctx.fillRect(x * this.TileSize, y * this.TileSize , this.TileSize, this.TileSize);
+		if(this.LevelMap != undefined){
+			for(var x = 0; x < this.LevelMap.length; x++){
+				for(var y = 0; y < this.LevelMap[x].length; y++){
+					if(this.LevelMap[x][y] == "w"){
+						ctx.drawImage(graphics.TextureHolder.wall, x * this.TileSize, y * this.TileSize);
+					}else{
+						ctx.drawImage(graphics.TextureHolder.grass, x * this.TileSize, y * this.TileSize);
+					}
+					//ctx.fillRect(x * this.TileSize, y * this.TileSize , this.TileSize, this.TileSize);
+				}			
 			}
 		}
 	}
@@ -43,7 +40,6 @@ var Level = function(){
 	}
 
 	this.draw = function(ctx){
-		this.drawLevel(ctx);
-		this.drawPlayers(ctx);
+		self.drawLevel(ctx);
 	}
 }
