@@ -21,7 +21,6 @@ socket.on('left', function(name) {
 
 //server sent players
 socket.on('updatedPlayers', function(data){
-  console.log('spam');
   Players.update(data);
 });
 

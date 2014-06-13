@@ -11,7 +11,8 @@ var Players = (function(){
 
   var draw = function(ctx, camera){
 	//var currentPlayer = getCurrentPlayer();
-	for(var x = 0; x < players.length; x++){
+	for(var a = 0; a < Object.keys(players).length; a++){
+    var x = Object.keys(players)[a];
 		var i = players[x].getPosition().x;
 		var j = players[x].getPosition().y;
 		if(players[x].id == getCurrentPlayer().id){
