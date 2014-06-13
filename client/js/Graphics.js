@@ -71,34 +71,34 @@ var Graphics = function () {
         //Player normal
         var playerNormalReady = false;
         this.playerNormal = new Image();
-        playerNormal.onload = function () {
+        this.playerNormal.onload = function () {
             playerNormalReady = true;
         };
-        playerNormal.src = base_dir + "player-normal.png";
+        this.playerNormal.src = base_dir + "player-normal.png";
 
         //Player "it"
         var playerItReady = false;
         this.playerIt = new Image();
-        playerIt.onload = function () {
+        this.playerIt.onload = function () {
             playerItReady = true;
         };
-        playerIt.src = base_dir + "player-it.png";
+        this.playerIt.src = base_dir + "player-it.png";
 
         //Opponent normal
         var opponentNormalReady = false;
         this.opponentNormal = new Image();
-        opponentNormal.onload = function () {
+        this.opponentNormal.onload = function () {
             opponentNormalReady = true;
         };
-        opponentNormal.src = base_dir + "opponent-normal.png";
+        this.opponentNormal.src = base_dir + "opponent-normal.png";
 
         //Opponent "it"
         var opponentItReady = false;
         this.opponentIt = new Image();
-        opponentIt.onload = function () {
+        this.opponentIt.onload = function () {
             opponentItReady = true;
         };
-        opponentIt.src = base_dir + "opponent-it.png";
+        this.opponentIt.src = base_dir + "opponent-it.png";
 
         this.init = function () {
 
