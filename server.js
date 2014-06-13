@@ -38,23 +38,39 @@ io.sockets.on('connection', function(socket) {
 
    //remove from players list when disconnected
    socket.on('disconnect', function() {
-      var playerLeft = players[socket.id];
-      socketBroadcast('left', playerLeft.name);
-      delete players[socket.id];
+      socketBroadcast('left', players[socket.id].name, function() {
+         delete players[socket.id];
+      });
    });
 
-   //client sent some updated player information
-   socket.on('updatedPlayer', function(data) {
-      players[socket.id].update(data.x, data.y);
+   //client user controls
+   socket.on('goUp', function() {
+      console.log(socket.id + ' went up');
+   });
+
+   socket.on('goDown', function() {
+      console.log(socket.id + ' went down');
+   });
+
+   socket.on('goLeft', function() {
+      console.log(socket.id + ' went left');
+   });
+
+   socket.on('goRight', function() {
+      console.log(socket.id + ' went right');
    });
 });
 
-function socketBroadcast(emitKey, message) {
+function socketBroadcast(emitKey, message, callback) {
    var playerKeys = Object.keys(players);
    _.each(playerKeys, function(key) {
       var player = players[key];
       player.socket.emit(emitKey, message);
    });
+
+   if(callback) {
+      callback();
+   }
 }
 
 function getPlayersAsList() {

@@ -4,6 +4,11 @@ socket.on('whatsYoName', function() {
    socket.emit('heresMyName', "");
 });
 
+//heres your player id
+socket.on('heresYourPlayerId', function(id) {
+
+});
+
 //someone connected
 socket.on('welcome', function(player) {
  console.log(player.name + " has connected!");
