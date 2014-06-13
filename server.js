@@ -49,19 +49,23 @@ io.sockets.on('connection', function(socket) {
 
    //client user controls
    socket.on('goUp', function() {
-      players[socket.id].moveUp();
+       if (!players[socket.id].moveUp())
+           socket.emit('collisionDetected');
    });
 
    socket.on('goDown', function() {
-      players[socket.id].moveDown();
+       if (!players[socket.id].moveDown())
+           socket.emit('collisionDetected');
    });
 
    socket.on('goLeft', function() {
-      players[socket.id].moveLeft();
+       if(!players[socket.id].moveLeft())
+           socket.emit('collisionDetected');
    });
 
-   socket.on('goRight', function() {
-      players[socket.id].moveRight();
+   socket.on('goRight', function () {
+       if(!players[socket.id].moveRight())
+           socket.emit('collisionDetected');
    });
 
    socket.on('tryTag', function() {
@@ -88,6 +92,8 @@ io.sockets.on('connection', function(socket) {
 
                   //Target player is now it!
                   player.isTagged = true;
+
+                  socket.emit('someoneWasTagged', player.id)
                }
             }
          });

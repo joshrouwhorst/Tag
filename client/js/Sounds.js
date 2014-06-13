@@ -32,7 +32,7 @@ var Sounds = function () {
             */
 
             gameNormalMusic = new Audio();
-            gameNormalMusic.volume = .2;
+            gameNormalMusic.volume = .4;
             gameNormalMusic.addEventListener('ended', function () {
                 this.currentTime = 0;
                 this.play();
@@ -94,7 +94,7 @@ var Sounds = function () {
 
         this.init = function () {
             taggedPlayerSFX = new Audio();
-            taggedPlayerSFX.volume = .5;
+            taggedPlayerSFX.volume = .7;
             taggedPlayerSFX.addEventListener('canplay', function () {
                 self.taggedPlayerSFXLoaded = true;
             }, false);
@@ -102,7 +102,7 @@ var Sounds = function () {
             taggedPlayerSFX.load();
 
             taggedOpponentSFX = new Audio();
-            taggedOpponentSFX.volume = .5;
+            taggedOpponentSFX.volume = .7;
             taggedOpponentSFX.addEventListener('canplay', function () {
                 self.taggedOpponentSFXLoaded = true;
             }, false);
@@ -110,7 +110,7 @@ var Sounds = function () {
             taggedOpponentSFX.load();
 
             collisionSFX = new Audio();
-            collisionSFX.volume = .2;
+            collisionSFX.volume = .3;
             collisionSFX.addEventListener('canplay', function () {
                 self.collisionSFXLoaded = true;
             }, false);

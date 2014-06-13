@@ -30,4 +30,15 @@ socket.on("heresTheLevel", function (data) {
   level.init(data);
   init();
     setInterval(main, (1000 / 60)); //60 FPS
-  });
+});
+
+socket.on("someoneWasTagged", function (playerId) {
+    if (Players.getCurrentPlayer().id == playerId)
+        sounds.FXPlayer.playTaggedPlayer();
+    else
+        sounds.FXPlayer.playTaggedOpponent();
+});
+
+socket.on("collisionDetected", function () {
+    sounds.FXPlayer.playCollision();
+});
