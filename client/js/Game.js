@@ -8,15 +8,18 @@ document.getElementById("game").appendChild(canvas);
 
 var then = Date.now();
 var level = new Level();
+var userInput = new UserInput();
 
 var graphics = new Graphics();
 var players = [];
 
 var init = function(){
 	graphics.init();
+	userInput.init();
 }
 
 var update = function(){
+	userInput.update();
 	level.update();
 	socket.emit("updatePlayers");
 }
