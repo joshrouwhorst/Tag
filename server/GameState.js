@@ -1,3 +1,5 @@
+var level = require("./resources/level.js").Level;
+
 function Player(id, socket, name) {
    var self = this;
    this.id = id;
