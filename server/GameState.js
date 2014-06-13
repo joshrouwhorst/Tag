@@ -20,22 +20,22 @@ function Player(id, socket, name) {
    
     //Player trying to move up
     this.moveUp = function() {
-        return movePlayerPosition(self.x, self.y + self.speed);
+        return this.movePlayerPosition(self.x, self.y + self.speed);
    }
    
     //Player trying to move down
     this.moveDown = function() {
-        return movePlayerPosition(self.x, self.y - self.speed);
+        return this.movePlayerPosition(self.x, self.y - self.speed);
    }
    
     //player trying to move right
     this.moveRight = function() {
-        return movePlayerPosition(self.x + self.speed, self.y);
+        return this.movePlayerPosition(self.x + self.speed, self.y);
    }
    
     //player trying to move left
     this.moveLeft = function() {
-        return movePlayerPosition(self.x - self.speed, self.y);
+        return this.movePlayerPosition(self.x - self.speed, self.y);
     }
 
     //player trying to tag
@@ -53,14 +53,14 @@ function Player(id, socket, name) {
         var yTileCoord = Math.floor(newY / BOARD_SETTINGS.tileSize);
 
         //Make sure if no wall is at the specified tile
-        var tileOnMap = level[xTileCoord, yTileCoord];
+        var tileOnMap = level[xTileCoord][yTileCoord];
 
         // 'n' = no wall
         // 'w' = wall
         if(tileOnMap == 'n'){
             //actually update player position
-            this.x = newX;
-            this.y = newY;
+            self.x = newX;
+            self.y = newY;
 
             //allow client to move
             didPlayerMove = true;

@@ -45,19 +45,20 @@ io.sockets.on('connection', function(socket) {
 
    //client user controls
    socket.on('goUp', function() {
-      console.log(socket.id + ' went up');
+      players[socket.id].moveUp();
    });
 
    socket.on('goDown', function() {
-      console.log(socket.id + ' went down');
+      players[socket.id].moveDown();
    });
 
    socket.on('goLeft', function() {
-      console.log(socket.id + ' went left');
+      players[socket.id].moveLeft();
    });
 
    socket.on('goRight', function() {
-      console.log(socket.id + ' went right');
+      players[socket.id].moveRight();
+      console.log(players[socket.id].getSocketSafe());
    });
 });
 
