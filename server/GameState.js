@@ -7,7 +7,7 @@ function Player(id, socket, name) {
     this.x = 60;
     this.y = 60;
     this.socket = socket;
-    this.speed = 5;
+    this.speed = 15;
 
    this.getSocketSafe = function() {
       return {
