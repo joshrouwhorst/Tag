@@ -36,6 +36,20 @@ var Players = (function(){
       return null;
     }
 
+    for ( var i = 0; i < data.length; i++ ){
+      found = false;
+
+      for ( var j = 0; j < players.length; j++ ){
+        if ( data[i].id === players[j].id ){
+          found = true;
+        }
+      }
+
+      if ( !found ){
+        players.push( new Player( data[i] ) );
+      }
+    }
+
     for ( var i = 0; i < players.length; i++ ){
       found = false;
 
