@@ -6,6 +6,7 @@ var _ = require('underscore');
 
 //import game logic
 var Player = require('./server/GameState.js').Player;
+var level = require("./server/resources/level.js").Level;
 
 //start server
 var port = process.env.PORT || 3000;
@@ -26,6 +27,7 @@ io.sockets.on('connection', function(socket) {
       thisPlayer = new Player(socket.id, socket, name);
       players[socket.id] = thisPlayer;
       socketBroadcast('welcome', thisPlayer.getSocketSafe());
+      socketBroadcast('heresTheLevel', level);
    });
 
    //client asked for player information
