@@ -6,7 +6,7 @@ socket.on('whatsYoName', function() {
 
 //heres your player id
 socket.on('heresYourPlayerId', function(id) {
-
+  Players.setCurrentPlayerId( id );
 });
 
 //someone connected

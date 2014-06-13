@@ -2,16 +2,16 @@
 var Players = (function(){
   var noop = function(){ return null; },
       players = [],
-      currentPlayer;
+      currentPlayer,
+      currentPlayerId;
 
   var init = function(){
     socket.emit('updatePlayers');
   };
 
-  var update = function(data){
+  var update = function( data ){
     var found;
 
-    //Find out what the user's pushing
     if (!data) {
       return null;
     }
@@ -31,6 +31,8 @@ var Players = (function(){
         i--;
       }
     }
+
+    setCurrentPlayer();
   };
 
   var getPlayers = function(){
@@ -51,7 +53,24 @@ var Players = (function(){
     return null;
   };
 
+  var setCurrentPlayer = function() {
+    for ( var i = 0; i < players.length; i++ ){
+      if ( !currentPlayer && players[i].id === currentPlayerId){
+        currentPlayer = players[i];
+        return true;
+      }
+    }
+
+    return false;
+  };
+
+  var setCurrentPlayerId = function( id ){
+    currentPlayerId = id;
+    setCurrentPlayer();
+  };
+
   return {
+    setCurrentPlayerId: setCurrentPlayerId,
     getPlayerById: getPlayerById,
     getCurrentPlayer: getCurrentPlayer,
     getPlayers: getPlayers,
