@@ -26,6 +26,7 @@ io.sockets.on('connection', function(socket) {
    socket.on('heresMyName', function(name) {
       thisPlayer = new Player(socket.id, socket, name);
       players[socket.id] = thisPlayer;
+      socket.emit('heresYourPlayerId', thisPlayer.id);
       socketBroadcast('welcome', thisPlayer.getSocketSafe());
       socketBroadcast('heresTheLevel', level);
    });
@@ -44,7 +45,7 @@ io.sockets.on('connection', function(socket) {
 
    //client sent some updated player information
    socket.on('updatedPlayer', function(data) {
-      //update X and Y
+      players[socket.id].update(data.x, data.y);
    });
 });
 
