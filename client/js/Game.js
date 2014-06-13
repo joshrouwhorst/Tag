@@ -18,7 +18,7 @@ var players = [];
 var init = function(){
 	graphics.init();
 	userInput.init();
-	viewport.init(canvas.width, canvas.height, level.LevelMap[0].length, level.LevelMap.length);
+	viewport.init(canvas.width, canvas.height, level.LevelMap[0].length * level.TileSize, level.LevelMap.length * level.TileSize);
 }
 
 var update = function(){
@@ -29,8 +29,8 @@ var update = function(){
 
 var draw = function(){
     viewport.setFocus(lx, ly);
-    lx++;
-    ly++;
+    //lx = lx+25;
+    ly = ly+25;
     level.draw(ctx, viewport);
     for (var i = 0; i < players.length; i++) {
         players[i].draw(ctx);
