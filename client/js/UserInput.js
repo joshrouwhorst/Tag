@@ -67,22 +67,18 @@ var UserInput = function () {
     this.update = function () {
         if (isUpKeyDown) {
             //player go up
-            console.log("up");
             socket.emit('goUp');
         }
         if (isDownKeyDown) {
             //player go down
-            console.log("down");
             socket.emit('goDown');
         }
         if (isRightKeyDown) {
             //player go right
-            console.log("right");
             socket.emit('goRight');
         }
         if (isLeftKeyDown) {
             //player go left
-            console.log("left");
             socket.emit('goLeft');
         }
         if (isMKeyDown) {

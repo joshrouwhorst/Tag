@@ -16,7 +16,6 @@ console.log('Server started on port ' + port + '...');
 console.log('==============================');
 
 var players = {};
-console.log(players);
 
 io.sockets.on('connection', function(socket) {
    var connection = this;
