@@ -14,7 +14,7 @@ var Level = function(){
 				if(x == 0 || y == 0 || x == this.TileX || y == this.TileY){
 					ArrayToAdd.push('w');
 				}else{
-					ArrayToAdd.push('e');
+					ArrayToAdd.push('n');
 				}
 			}
 			this.LevelMap.push(ArrayToAdd);
