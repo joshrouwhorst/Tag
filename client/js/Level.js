@@ -19,15 +19,17 @@ var Level = function(){
 	}
 	
 	this.drawLevel = function(ctx){
-		for(var x = 0; x <= this.TileX; x++){
-			for(var y = 0; y <= this.TileY; y++){
-				if(this.LevelMap[x][y] == "w"){
-					ctx.fillStyle = "black";
-				}else{
-					ctx.fillStyle = "gray";
-				}
-				ctx.fillRect(x * this.TileSize, y * this.TileSize , this.TileSize, this.TileSize);
-			}			
+		if(this.LevelMap != undefined){
+			for(var x = 0; x < this.LevelMap.length; x++){
+				for(var y = 0; y < this.LevelMap[x].length; y++){
+					if(this.LevelMap[x][y] == "w"){
+						ctx.drawImage(graphics.TextureHolder.wall, x * this.TileSize, y * this.TileSize);
+					}else{
+						ctx.drawImage(graphics.TextureHolder.grass, x * this.TileSize, y * this.TileSize);
+					}
+					//ctx.fillRect(x * this.TileSize, y * this.TileSize , this.TileSize, this.TileSize);
+				}			
+			}
 		}
 	}
 	
