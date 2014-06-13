@@ -21,7 +21,7 @@ var Level = function(){
 		//this.placePlayers();
 	}
 	
-	this.drawLevel = function(ctx){
+	this.drawLevel = function(ctx, camera){
 		for(var x = 0; x <= self.LevelMap.length - 1; x++){
 			for(var y = 0; y <= self.LevelMap[x].length - 1; y++){
 				if(self.LevelMap[x][y] == "w"){
@@ -29,12 +29,12 @@ var Level = function(){
 				}else{
 					ctx.fillStyle = "gray";
 				}
-				ctx.fillRect(x * self.TileSize, y * self.TileSize , self.TileSize, self.TileSize);
+				ctx.fillRect(camera.translateX(x * self.TileSize), camera.translateY(y * self.TileSize), self.TileSize, self.TileSize);
 			}
 		}
 	}
 	
-	this.draw = function(ctx){
-		self.drawLevel(ctx);
+	this.draw = function(ctx, camera){
+	    self.drawLevel(ctx, camera);
 	}
 }

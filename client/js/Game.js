@@ -5,13 +5,13 @@ canvas.width = 600;
 canvas.height = 700;
 document.getElementById("game").appendChild(canvas); 
 
-
 var then = Date.now();
 var level = new Level();
+var viewport = null;
 //var players = new Players();
 var players = [];
 
-var init = function(){
+var init = function () {
 	//players.init();
 }
 
@@ -21,11 +21,20 @@ var update = function(){
 }
 
 var draw = function(){
-	if(level.loaded)
-		level.draw(ctx);
-	for(var i = 0; i < players.length; i++) {
-		players[i].draw(ctx);
-	}
+    if (level.loaded) {
+        if (viewport == null) {
+            viewport = new Camera();
+            viewport.init(canvas.width, canvas.height, self.LevelMap[0].length, self.LevelMap.length);
+            var lx = 0, ly = 0;
+        }
+        viewport.setFocus(lx, ly);
+        lx++;
+        ly++;
+        level.draw(ctx, viewport);
+        for (var i = 0; i < players.length; i++) {
+            players[i].draw(ctx);
+        }
+    }
 }
 
 //game loop
