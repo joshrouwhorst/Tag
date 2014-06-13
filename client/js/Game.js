@@ -47,19 +47,23 @@ var update = function(){
 var draw = function () {
 
     //Set focus 
-    //var player = Players.getCurrentPlayer();
-    //var player = Players.getPlayers()[0];
-    //viewport.setFocus(player.getPosition.x, player.getPosition.y);
-    
-    if (sounds.MusicPlayer.gameNormalMusicLoaded && !sounds.MusicPlayer.isNormalBackgroundPlaying())
+    var player = Players.getCurrentPlayer();
+	if(player == undefined){
+		return;
+	}
+    viewport.setFocus(player.getPosition().x, player.getPosition().y);
+    console.log("x: " + player.getPosition().x + " y: " + player.getPosition().y);
+	
+	if (sounds.MusicPlayer.gameNormalMusicLoaded && !sounds.MusicPlayer.isNormalBackgroundPlaying())
         sounds.MusicPlayer.playNormalBackground();
-
+		
 	level.draw(ctx, viewport);
 	Players.draw(ctx, viewport);
 }
 
 //game loop
 var main = function () {
+	console.log("stuff");
 	var now = Date.now();
 	var delta = now - then;
 

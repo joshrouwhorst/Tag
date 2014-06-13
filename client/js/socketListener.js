@@ -6,6 +6,7 @@ socket.on('whatsYoName', function() {
 
 //heres your player id
 socket.on('heresYourPlayerId', function(id) {
+debugger;
   Players.setCurrentPlayerId( id );
 });
 
