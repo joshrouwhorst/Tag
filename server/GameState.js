@@ -23,31 +23,47 @@ function Player(id, socket, name) {
    
     //Player trying to move up
     this.moveUp = function() {
-        return this.movePlayerPosition(self.x, self.y + self.speed);
+        return this.movePlayerPosition(
+                                        self.x, 
+                                        self.y - self.speed, 
+                                        self.x, 
+                                        self.y - self.speed + self.radius);
    }
    
     //Player trying to move down
     this.moveDown = function() {
-        return this.movePlayerPosition(self.x, self.y - self.speed);
+        return this.movePlayerPosition(
+                                        self.x, 
+                                        self.y + self.speed,
+                                        self.x,
+                                        self.y + self.speed + self.radius);
    }
    
     //player trying to move right
     this.moveRight = function() {
-        return this.movePlayerPosition(self.x + self.speed, self.y);
+        return this.movePlayerPosition(
+                                        self.x + self.speed,
+                                        self.y,
+                                        self.x + self.speed + self.radius,
+                                        self.y);
    }
    
     //player trying to move left
     this.moveLeft = function() {
-        return this.movePlayerPosition(self.x - self.speed, self.y);
+        return this.movePlayerPosition(
+                                        self.x - self.speed,
+                                        self.y,
+                                        self.x - self.speed - self.radius,
+                                        self.y);
     }
 
     //Calculate coordinate player is trying to move to
-    this.movePlayerPosition = function (newX, newY) {
+    this.movePlayerPosition = function (newX, newY, checkX, checkY) {
         var didPlayerMove = false;
 
-        //Get tile (indecies in board/map array) for newX, newY pixel coordinates
-        var xTileCoord = Math.floor(newX / BOARD_SETTINGS.tileSize);
-        var yTileCoord = Math.floor(newY / BOARD_SETTINGS.tileSize);
+        //Get tile (indecies in board/map array) for checkX, checkY pixel coordinates (factoring in radius of player)
+        var xTileCoord = Math.floor(checkX / BOARD_SETTINGS.tileSize);
+        var yTileCoord = Math.floor(checkY / BOARD_SETTINGS.tileSize);
 
         //Make sure if no wall is at the specified tile
         var tileOnMap = level[xTileCoord][yTileCoord];
