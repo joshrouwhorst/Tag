@@ -1,43 +1,21 @@
 var Level = function(){
 	this.LevelMap = new Array();
 	this.PlayerMap = new Array();
-	this.TileX = 250;
-	this.TileY = 250;
 	this.TileSize = 32;
-	
-	//w = wall
-	//b = blank
-	this.createLevel = function(){
-		for(var x = 0; x <= this.TileX; x++){
-			var ArrayToAdd = new Array();
-			for(var y = 0; y <= this.TileY; y++){
-				if(x == 0 || y == 0 || x == this.TileX || y == this.TileY){
-					ArrayToAdd.push('w');
-				}else{
-					ArrayToAdd.push('n');
-				}
-			}
-			this.LevelMap.push(ArrayToAdd);
-		}
-	}
-	
-	
-	this.init = function(){
-		this.createLevel();
-		//socket.on("initiatedLevel", function(data){
-			//this.LevelMap = data;
-		//});
+
+	this.init = function(map) {
+		this.LevelMap = map;
 	}	
 	
-	this.placePlayers = function(){
+	/*this.placePlayers = function(){
 		for(var i = 0; i <= players.length; i++){
 			var coord = players[i].getPosition();
 			this.PlayerMap[coord.x][coord.y] = player;
 		}
-	}
+	}*/
 	
 	this.update = function(){
-		this.placePlayers();
+		//this.placePlayers();
 	}
 	
 	this.drawLevel = function(ctx){

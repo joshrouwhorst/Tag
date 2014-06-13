@@ -8,11 +8,10 @@ document.getElementById("game").appendChild(canvas);
 
 var then = Date.now();
 var level = new Level();
-var players = new Players();
+//var players = new Players();
 
 var init = function(){
-	level.init();
-	players.init();
+	//players.init();
 }
 
 var update = function(){
