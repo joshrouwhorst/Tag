@@ -16,7 +16,6 @@ var init = function(){
 }
 
 var update = function(){
-	
 	level.update();
 	socket.emit("updatePlayers"); //update players ie: players.update()
 }
