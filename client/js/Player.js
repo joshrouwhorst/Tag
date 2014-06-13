@@ -1,14 +1,14 @@
 // Players is basically a "static" class or a service.
 var Players = (function(){
   var noop = function(){ return null; },
-      players = [],
+      players = {},
       currentPlayer,
       currentPlayerId;
 
   var init = function(){
-    
+
   };
-  
+
   var draw = function(ctx, camera){
 	//var currentPlayer = getCurrentPlayer();
 	for(var x = 0; x < players.length; x++){
@@ -32,39 +32,23 @@ var Players = (function(){
   }
 
   var update = function( data ){
-    var found;
+    var id;
 
     if (!data) {
       return null;
     }
 
-    for ( var i = 0; i < data.length; i++ ){
-      found = false;
-
-      for ( var j = 0; j < players.length; j++ ){
-        if ( data[i].id === players[j].id ){
-          found = true;
-        }
-      }
-
-      if ( !found ){
-        players.push( new Player( data[i] ) );
+    for ( id in data ) {
+      if ( !players[id] ){
+        players[id] = new Player( data[id] );
       }
     }
 
-    for ( var i = 0; i < players.length; i++ ){
-      found = false;
-
-      for ( var j = 0; j < data.length && !found; j++ ){
-        if ( players[i].id === data[j].id ){
-          players[i].update( data[j] );
-          found = true;
-        }
-      }
-
-      if ( !found ){
-        players.splice(i, 1);
-        i--;
+    for ( id in players ){
+      if ( data[id] ){
+        players[id].update( data[id] );
+      } else {
+        players[id] = null;
       }
     }
 
@@ -72,7 +56,13 @@ var Players = (function(){
   };
 
   var getPlayers = function(){
-    return players;
+    var playersIndex = [];
+
+    for ( var id in players ){
+      playersIndex.push( players[id] );
+    }
+
+    return playersIndex;
   };
 
   var getCurrentPlayer = function(){
@@ -80,21 +70,17 @@ var Players = (function(){
   };
 
   var getPlayerById = function( id ){
-    for ( var i = 0; i < players.length; i++ ){
-      if ( players[i].id == id ){
-        return players[i];
-      }
+    if ( players[id] ){
+      return players[id];
     }
 
     return null;
   };
 
   var setCurrentPlayer = function() {
-    for ( var i = 0; i < players.length; i++ ){
-      if ( !currentPlayer && players[i].id === currentPlayerId){
-        currentPlayer = players[i];
-        return true;
-      }
+    if ( players[id] ){
+      currentPlayer = players[currentPlayerId];
+      return true;
     }
 
     return false;
