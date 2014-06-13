@@ -4,8 +4,8 @@ function Player(id, socket, name) {
     var self = this;
     this.id = id;
     this.name = name || "Anonymous";
-    this.x = Math.random() * BOARD_SETTINGS.maxX * BOARD_SETTINGS.tileSize;
-    this.y = Math.random() * BOARD_SETTINGS.maxY * BOARD_SETTINGS.tileSize;
+    this.x = 60;
+    this.y = 60;
     this.socket = socket;
     this.speed = 5;
 

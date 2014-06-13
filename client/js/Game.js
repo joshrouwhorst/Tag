@@ -29,10 +29,13 @@ var update = function(){
 var draw = function () {
 
     //Set focus 
-    //var player = Players.getCurrentPlayer();
-    //var player = Players.getPlayers()[0];
-    //viewport.setFocus(player.getPosition.x, player.getPosition.y);
-    
+	debugger;
+    var player = Players.getCurrentPlayer();
+	if(player == undefined){
+		return;
+	}
+    viewport.setFocus(player.getPosition().x, player.getPosition().y);
+    console.log("x: " + player.getPosition().x + " y: " + player.getPosition().y);
     //ly = ly + 50;
     //viewport.setFocus(0, ly);
 

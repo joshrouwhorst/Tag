@@ -10,20 +10,22 @@ var Players = (function(){
   };
   
   var draw = function(ctx, camera){
-	var currentPlayer = getCurrentPlayer();
-	for(var x = 0; x <= players.length; x++){
-		if(players[x].id == currentPlayer.id){
+	//var currentPlayer = getCurrentPlayer();
+	for(var x = 0; x < players.length; x++){
+		var i = players[x].getPosition().x;
+		var j = players[x].getPosition().y;
+		if(players[x].id == getCurrentPlayer().id){
 			//draw ourselves
 			if(players[x].getIsTagged()){
-				ctx.drawImage(graphics.PlayerHolder.playerIt, camera.translateX(x * this.TileSize), camera.translateY(y * this.TileSize));
+				ctx.drawImage(graphics.PlayerHolder.playerIt, camera.translateX(i), camera.translateY(j));
 			}else{
-				ctx.drawImage(graphics.PlayerHolder.playerNormal, camera.translateX(x * this.TileSize), camera.translateY(y * this.TileSize));
+				ctx.drawImage(graphics.PlayerHolder.playerNormal, camera.translateX(i), camera.translateY(j));
 			}
 		}else{
 			if(players[x].getIsTagged()){
-				ctx.drawImage(graphics.PlayerHolder.opponentIt, camera.translateX(x * this.TileSize), camera.translateY(y * this.TileSize));
+				ctx.drawImage(graphics.PlayerHolder.opponentIt, camera.translateX(i), camera.translateY(j));
 			}else{
-				ctx.drawImage(graphics.PlayerHolder.opponentNormal, camera.translateX(x * this.TileSize), camera.translateY(y * this.TileSize));
+				ctx.drawImage(graphics.PlayerHolder.opponentNormal, camera.translateX(i), camera.translateY(j));
 			}
 		}
 	}
@@ -109,7 +111,7 @@ var Players = (function(){
     getCurrentPlayer: getCurrentPlayer,
     getPlayers: getPlayers,
     update: update,
-    draw: noop,
+    draw: draw,
     init: init
   };
 })();
