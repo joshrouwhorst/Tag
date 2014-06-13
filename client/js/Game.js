@@ -8,23 +8,25 @@ document.getElementById("game").appendChild(canvas);
 
 var then = Date.now();
 var level = new Level();
-//var players = new Players();
 var players = [];
 
 var init = function(){
-	//players.init();
 }
 
 var update = function(){
 	level.update();
-	socket.emit("updatePlayers"); //update players ie: players.update()
+	socket.emit("updatePlayers");
 }
 
 var draw = function(){
-	if(level.loaded)
+	//don't draw anything until the level is loaded from the server
+	if(level.loaded) {
 		level.draw(ctx);
-	for(var i = 0; i < players.length; i++) {
-		players[i].draw(ctx);
+		
+		for(var i = 0; i < players.length; i++) {
+			console.log(players[i]);
+			players[i].draw(ctx);
+		}
 	}
 }
 

@@ -10,15 +10,7 @@ var Level = function(){
 		self.loaded = true;
 	}	
 	
-	/*this.placePlayers = function(){
-		for(var i = 0; i <= players.length; i++){
-			var coord = players[i].getPosition();
-			this.PlayerMap[coord.x][coord.y] = player;
-		}
-	}*/
-	
 	this.update = function(){
-		//this.placePlayers();
 	}
 	
 	this.drawLevel = function(ctx){
