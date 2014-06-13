@@ -13,6 +13,7 @@ var lx = 0, ly = 0;
 var viewport = new Camera();
 
 var graphics = new Graphics();
+var sounds = new Sounds();
 var myPlayerId = -1;
 var players = {};
 
@@ -32,6 +33,7 @@ function getMyPlayer() {
 
 var init = function(){
 	graphics.init();
+	sounds.init();
 	userInput.init();
 	viewport.init(canvas.width, canvas.height, level.LevelMap[0].length * level.TileSize, level.LevelMap.length * level.TileSize);
 }
@@ -49,8 +51,8 @@ var draw = function () {
     //var player = Players.getPlayers()[0];
     //viewport.setFocus(player.getPosition.x, player.getPosition.y);
     
-    ly = ly + 50;
-    viewport.setFocus(0, ly);
+    if (sounds.MusicPlayer.gameNormalMusicLoaded && !sounds.MusicPlayer.isNormalBackgroundPlaying())
+        sounds.MusicPlayer.playNormalBackground();
 
 	level.draw(ctx, viewport);
 	var pList = getPlayersAsList();
