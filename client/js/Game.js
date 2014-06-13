@@ -27,7 +27,6 @@ var draw = function(){
 		level.draw(ctx);
 		
 		for(var i = 0; i < players.length; i++) {
-			console.log(players[i]);
 			players[i].draw(ctx);
 		}
 	}

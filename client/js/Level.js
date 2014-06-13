@@ -15,8 +15,8 @@ var Level = function(){
 
 	this.drawLevel = function(ctx){
 		if(this.LevelMap != undefined){
-			for(var x = 0; x < this.LevelMap.length; x++){
-				for(var y = 0; y < this.LevelMap[x].length; y++){
+			for(var x = 0; x < this.LevelMap.length - 1; x++){
+				for(var y = 0; y < this.LevelMap[x].length - 1; y++){
 					if(this.LevelMap[x][y] == "w"){
 						ctx.drawImage(graphics.TextureHolder.wall, x * this.TileSize, y * this.TileSize);
 					}else{
