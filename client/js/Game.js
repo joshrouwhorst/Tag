@@ -7,17 +7,17 @@ document.getElementById("game").appendChild(canvas);
 
 var then = Date.now();
 var level = new Level();
-var viewport = null;
-//var players = new Players();
+
+var graphics = new Graphics();
 var players = [];
 
-var init = function () {
-	//players.init();
+var init = function(){
+	graphics.init();
 }
 
 var update = function(){
 	level.update();
-	socket.emit("updatePlayers"); //update players ie: players.update()
+	socket.emit("updatePlayers");
 }
 
 var draw = function(){

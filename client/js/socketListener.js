@@ -15,7 +15,9 @@ socket.on('left', function(name) {
 });
 
 socket.on('updatedPlayers', function(data){
-  players = data;
+  for(var i = 0; i < players.length; i++) {
+    players[i].update(data.x, data.y);
+  }
 });
 
 socket.on("heresTheLevel", function(data){

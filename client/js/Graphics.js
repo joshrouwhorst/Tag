@@ -2,41 +2,41 @@ var Graphics = function () {
     
     //===========================================
     //Texture
-
-    this.Texture = function () {
-        var base_dir = "../graphics/texture/";
+	this.TextureHolder;
+    var Texture = function () {
+        var base_dir = "../client/graphics/texture/";
         
         //Grass block
-        var grassReady = false;
+        this.grassReady = false;
         this.grass = new Image();
-        grass.onload = function () {
+        this.grass.onload = function () {
             grassReady = true;
         };
-        grass.src = base_dir + "grass.png";
+        this.grass.src = base_dir + "grass.png";
 
         //Overgrown grass block
-        var grassOvergrownReady = false;
+        this.grassOvergrownReady = false;
         this.grassOvergrown = new Image();
-        grassOvergrown.onload = function () {
+        this.grassOvergrown.onload = function () {
             grassOvergrownReady = true;
         };
-        grassOvergrown.src = base_dir + "overgrown.png";
+        this.grassOvergrown.src = base_dir + "overgrown.png";
 
         //Boundary
-        var boundaryWallReady = false;
+        this.boundaryWallReady = false;
         this.boundaryWall = new Image();
-        boundaryWall.onload = function () {
+        this.boundaryWall.onload = function () {
             boundaryWallReady = true;
         };
-        boundaryWall.src = base_dir + "wall-dark.png";
+        this.boundaryWall.src = base_dir + "wall-dark.png";
 
         //Walls
-        var wallReady = false;
+        this.wallReady = false;
         this.wall = new Image();
-        wall.onload = function () {
+        this.wall.onload = function () {
             wallReady = true;
         };
-        wall.src = base_dir + "wall-light.png";
+        this.wall.src = base_dir + "wall-light.png";
 
         this.init = function () {
 
@@ -49,9 +49,9 @@ var Graphics = function () {
 
     //===========================================
     //Powerups
-
-    this.Powerup = function () {
-        var base_dir = "../graphics/powerup/";
+	this.PowerupHolder;
+    var Powerup = function () {
+        var base_dir = "../client/graphics/powerup/";
 
         this.init = function () {
 
@@ -64,41 +64,41 @@ var Graphics = function () {
 
     //===========================================
     //Player
-
-    this.Player = function () {
-        var base_dir = "../graphics/player/";
+	this.PlayerHolder
+    var Player = function () {
+        var base_dir = "../client/graphics/player/";
 
         //Player normal
         var playerNormalReady = false;
         this.playerNormal = new Image();
-        playerNormal.onload = function () {
+        this.playerNormal.onload = function () {
             playerNormalReady = true;
         };
-        playerNormal.src = base_dir + "player-normal.png";
+        this.playerNormal.src = base_dir + "player-normal.png";
 
         //Player "it"
         var playerItReady = false;
         this.playerIt = new Image();
-        playerIt.onload = function () {
+        this.playerIt.onload = function () {
             playerItReady = true;
         };
-        playerIt.src = base_dir + "player-it.png";
+        this.playerIt.src = base_dir + "player-it.png";
 
         //Opponent normal
         var opponentNormalReady = false;
         this.opponentNormal = new Image();
-        opponentNormal.onload = function () {
+        this.opponentNormal.onload = function () {
             opponentNormalReady = true;
         };
-        opponentNormal.src = base_dir + "opponent-normal.png";
+        this.opponentNormal.src = base_dir + "opponent-normal.png";
 
         //Opponent "it"
         var opponentItReady = false;
         this.opponentIt = new Image();
-        opponentIt.onload = function () {
+        this.opponentIt.onload = function () {
             opponentItReady = true;
         };
-        opponentIt.src = base_dir + "opponent-it.png";
+        this.opponentIt.src = base_dir + "opponent-it.png";
 
         this.init = function () {
 
@@ -110,9 +110,14 @@ var Graphics = function () {
     }
 
     this.init = function () {
-        this.Texture.init();
-        this.Powerup.init();
-        this.Player.init();
+        this.TextureHolder = new Texture();
+		this.TextureHolder.init();
+		
+        this.PowerupHolder = new Powerup();
+		this.PowerupHolder.init();
+		
+		this.PlayerHolder = new Player();
+        this.PlayerHolder.init();
     }
 
     this.isLoaded = function () {

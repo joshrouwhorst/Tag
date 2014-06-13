@@ -8,33 +8,37 @@ var Level = function(){
 	this.init = function(map) {
 		self.LevelMap = map;
 		self.loaded = true;
-	}	
-	
-	/*this.placePlayers = function(){
-		for(var i = 0; i <= players.length; i++){
-			var coord = players[i].getPosition();
-			this.PlayerMap[coord.x][coord.y] = player;
-		}
-	}*/
-	
-	this.update = function(){
-		//this.placePlayers();
 	}
-	
+
+	this.update = function(){
+	}
 	this.drawLevel = function(ctx, camera){
-		for(var x = 0; x <= self.LevelMap.length - 1; x++){
-			for(var y = 0; y <= self.LevelMap[x].length - 1; y++){
-				if(self.LevelMap[x][y] == "w"){
-					ctx.fillStyle = "black";
-				}else{
-					ctx.fillStyle = "gray";
-				}
-				ctx.fillRect(camera.translateX(x * self.TileSize), camera.translateY(y * self.TileSize), self.TileSize, self.TileSize);
+		if(this.LevelMap != undefined){
+			for(var x = 0; x < this.LevelMap.length - 1; x++){
+				for(var y = 0; y < this.LevelMap[x].length - 1; y++){
+					if(this.LevelMap[x][y] == "w"){
+					    ctx.drawImage(graphics.TextureHolder.wall, camera.translateX(x * this.TileSize), camera.translateY(y * this.TileSize));
+					}else{
+					    ctx.drawImage(graphics.TextureHolder.grass, camera.translateX(x * this.TileSize), camera.translateY(y * this.TileSize));
+					}
+					//ctx.fillRect(x * this.TileSize, y * this.TileSize , this.TileSize, this.TileSize);
+				}			
 			}
 		}
 	}
-	
+
+	this.drawPlayers = function(ctx){
+		for(var x = 0; x <= this.TileX; x++){
+			for(var y = 0; y <= this.TileY; y++){
+				if(this.LevelMap[x][y] instanceof Player){ //Made Player a global class
+					ctx.fillStyle = this.LevelMap[x][y].Color;
+					ctx.fillRect(camera.translateX(x * this.TileSize), camera.translateY(y * this.TileSize), this.TileSize, this.TileSize);
+				}
+			}
+		}
+	}
+
 	this.draw = function(ctx, camera){
-	    self.drawLevel(ctx, camera);
+		self.drawLevel(ctx, camera);
 	}
 }
