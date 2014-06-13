@@ -53,8 +53,8 @@ var draw = function () {
 	}
     viewport.setFocus(player.getPosition().x, player.getPosition().y);
 	
-	if (sounds.MusicPlayer.gameNormalMusicLoaded && !sounds.MusicPlayer.isNormalBackgroundPlaying())
-        sounds.MusicPlayer.playNormalBackground();
+	//if (sounds.MusicPlayer.gameNormalMusicLoaded && !sounds.MusicPlayer.isNormalBackgroundPlaying())
+    //    sounds.MusicPlayer.playNormalBackground();
 		
 	level.draw(ctx, viewport);
 	Players.draw(ctx, viewport);

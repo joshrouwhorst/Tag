@@ -7,3 +7,12 @@ C:\rwoodcox\BitmapMapReaderToArray\BitmapMapReaderToArray\obj\Debug\BitmapMapRea
 C:\rwoodcox\BitmapMapReaderToArray\BitmapMapReaderToArray\obj\Debug\BitmapMapReaderToArray.exe
 C:\rwoodcox\BitmapMapReaderToArray\BitmapMapReaderToArray\obj\Debug\BitmapMapReaderToArray.pdb
 C:\rwoodcox\BitmapMapReaderToArray\BitmapMapReaderToArray\obj\Debug\BitmapMapReaderToArray.MainForm.resources
+C:\Source\Springthrough\Github\Game of Tag\Map_Utility\BitmapMapReaderToArray\BitmapMapReaderToArray\bin\Debug\BitmapMapReaderToArray.exe.config
+C:\Source\Springthrough\Github\Game of Tag\Map_Utility\BitmapMapReaderToArray\BitmapMapReaderToArray\bin\Debug\BitmapMapReaderToArray.exe
+C:\Source\Springthrough\Github\Game of Tag\Map_Utility\BitmapMapReaderToArray\BitmapMapReaderToArray\bin\Debug\BitmapMapReaderToArray.pdb
+C:\Source\Springthrough\Github\Game of Tag\Map_Utility\BitmapMapReaderToArray\BitmapMapReaderToArray\obj\Debug\BitmapMapReaderToArray.csprojResolveAssemblyReference.cache
+C:\Source\Springthrough\Github\Game of Tag\Map_Utility\BitmapMapReaderToArray\BitmapMapReaderToArray\obj\Debug\BitmapMapReaderToArray.MainForm.resources
+C:\Source\Springthrough\Github\Game of Tag\Map_Utility\BitmapMapReaderToArray\BitmapMapReaderToArray\obj\Debug\BitmapMapReaderToArray.Properties.Resources.resources
+C:\Source\Springthrough\Github\Game of Tag\Map_Utility\BitmapMapReaderToArray\BitmapMapReaderToArray\obj\Debug\BitmapMapReaderToArray.csproj.GenerateResource.Cache
+C:\Source\Springthrough\Github\Game of Tag\Map_Utility\BitmapMapReaderToArray\BitmapMapReaderToArray\obj\Debug\BitmapMapReaderToArray.exe
+C:\Source\Springthrough\Github\Game of Tag\Map_Utility\BitmapMapReaderToArray\BitmapMapReaderToArray\obj\Debug\BitmapMapReaderToArray.pdb
