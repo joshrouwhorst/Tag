@@ -66,19 +66,19 @@ var Sounds = function () {
         var menuMoveSFX;
 
         this.init = function () {
-            taggedPlayerSFX = new Audio(base_dir_fx + "tagged-player.mp3");
+            taggedPlayerSFX = new Audio(base_dir_fx + "tagged-player.wav");
             taggedPlayerSFX.volume = .3;
 
-            taggedOpponentSFX = new Audio(base_dir_fx + "tagged-opponent.mp3");
+            taggedOpponentSFX = new Audio(base_dir_fx + "tagged-opponent.wav");
             taggedOpponentSFX.volume = .3;
 
-            collisionSFX = new Audio(base_dir_fx + "collision.mp3");
+            collisionSFX = new Audio(base_dir_fx + "collision.wav");
             collisionSFX.volume = .1;
 
-            menuSelectSFX = new Audio(base_dir_fx + "menu-select.mp3");
+            menuSelectSFX = new Audio(base_dir_fx + "menu-select.wav");
             menuSelectSFX.volume = .5;
 
-            menuMoveSFX = new Audio(base_dir_fx + "menu-move.mp3");
+            menuMoveSFX = new Audio(base_dir_fx + "menu-move.wav");
             menuMoveSFX.volume = .3;
         }
 

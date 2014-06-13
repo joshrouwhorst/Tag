@@ -42,9 +42,16 @@ var update = function(){
 	socket.emit("updatePlayers");
 }
 
-var draw = function(){
-	viewport.setFocus(lx, ly);
-	ly = ly+25;
+var draw = function () {
+
+    //Set focus 
+    //var player = Players.getCurrentPlayer();
+    //var player = Players.getPlayers()[0];
+    //viewport.setFocus(player.getPosition.x, player.getPosition.y);
+    
+    ly = ly + 50;
+    viewport.setFocus(0, ly);
+
 	level.draw(ctx, viewport);
 	var pList = getPlayersAsList();
 	_.each(pList, function(player) {
