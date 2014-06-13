@@ -21,6 +21,7 @@ socket.on('left', function(name) {
 
 //server sent players
 socket.on('updatedPlayers', function(data){
+  console.log(data[0].x + ", " + data[0].y)
   Players.update(data);
 });
 

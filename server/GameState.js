@@ -4,11 +4,13 @@ function Player(id, socket, name) {
     var self = this;
     this.id = id;
     this.name = name || "Anonymous";
-    this.x = Math.random() * BOARD_SETTINGS.maxX * BOARD_SETTINGS.tileSize;
-    this.y = Math.random() * BOARD_SETTINGS.maxY * BOARD_SETTINGS.tileSize;
     this.radius = Math.floor(BOARD_SETTINGS.tileSize / 2);
     this.isTagged = false;
     this.tagTimer = 0;
+    //this.x = Math.random() * BOARD_SETTINGS.maxX * BOARD_SETTINGS.tileSize;
+    //this.y = Math.random() * BOARD_SETTINGS.maxY * BOARD_SETTINGS.tileSize;
+    this.x = 35;
+    this.y = 35;
     this.socket = socket;
     this.speed = 5;
 
@@ -16,6 +18,8 @@ function Player(id, socket, name) {
       return {
          id: self.id,
          name: self.name,
+         isTagged: self.isTagged,
+         tagTimer: self.tagTimer,
          x: self.x,
          y: self.y
       }
