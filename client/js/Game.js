@@ -10,6 +10,7 @@ var then = Date.now();
 var level = new Level();
 var graphics = new Graphics();
 //var players = new Players();
+var players = [];
 
 var init = function(){
 	//players.init();
@@ -17,13 +18,16 @@ var init = function(){
 }
 
 var update = function(){
-	
 	level.update();
 	socket.emit("updatePlayers"); //update players ie: players.update()
 }
 
 var draw = function(){
-	level.draw(ctx);
+	if(level.loaded)
+		level.draw(ctx);
+	for(var i = 0; i < players.length; i++) {
+		players[i].draw(ctx);
+	}
 }
 
 //game loop

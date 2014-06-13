@@ -1,10 +1,13 @@
 var Level = function(){
-	this.LevelMap = new Array();
-	this.PlayerMap = new Array();
+	self = this;
+	this.LevelMap = [];
+	this.PlayerMap = [];
 	this.TileSize = 32;
+	this.loaded = false;
 
 	this.init = function(map) {
-		this.LevelMap = map;
+		self.LevelMap = map;
+		self.loaded = true;
 	}	
 	
 	/*this.placePlayers = function(){
@@ -45,7 +48,6 @@ var Level = function(){
 	}
 	
 	this.draw = function(ctx){
-		this.drawLevel(ctx);
-		this.drawPlayers(ctx);
+		self.drawLevel(ctx);
 	}
 }

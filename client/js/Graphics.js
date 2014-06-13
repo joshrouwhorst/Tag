@@ -70,7 +70,7 @@ var Graphics = function () {
 
         //Player normal
         var playerNormalReady = false;
-        var playerNormal = new Image();
+        this.playerNormal = new Image();
         playerNormal.onload = function () {
             playerNormalReady = true;
         };
@@ -78,7 +78,7 @@ var Graphics = function () {
 
         //Player "it"
         var playerItReady = false;
-        var playerIt = new Image();
+        this.playerIt = new Image();
         playerIt.onload = function () {
             playerItReady = true;
         };
@@ -86,7 +86,7 @@ var Graphics = function () {
 
         //Opponent normal
         var opponentNormalReady = false;
-        var opponentNormal = new Image();
+        this.opponentNormal = new Image();
         opponentNormal.onload = function () {
             opponentNormalReady = true;
         };
@@ -94,7 +94,7 @@ var Graphics = function () {
 
         //Opponent "it"
         var opponentItReady = false;
-        var opponentIt = new Image();
+        this.opponentIt = new Image();
         opponentIt.onload = function () {
             opponentItReady = true;
         };
