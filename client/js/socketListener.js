@@ -18,9 +18,9 @@ socket.on('serverResponse', function(data) {
    alert('Server said: ' + data);
 });
 
-/*socket.on('updatedPlayers', function(data){
-  PlayerList.update(data);
-});*/
+socket.on('updatedPlayers', function(data){
+  Players.update(data);
+});
 
 socket.on("heresTheLevel", function(data){
   level.init(data);

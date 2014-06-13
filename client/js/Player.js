@@ -1,24 +1,27 @@
-var Players = function(){
-  var noop = function(){ return null; };
+// Players is basically a "static" class or a service.
+var Players = (function(){
+  var noop = function(){ return null; },
+      players = [],
+      currentPlayer;
 
-  this.init = function(){
+  var init = function(){
     socket.emit('updatePlayers');
   };
 
-  this.update = function(data){
+  var update = function(data){
     //Find out what the user's pushing
     if (!data) {
       return null;
     }
 
-    var players = [],
-        currentPlayer;
+    // Clears out the array but keeps all references to the array sync'd.
+    players.splice( 0, players.length );
 
     for ( var i = 0; i < data.length; i++ ){
-      players.push( new players.Player( data[i] ) );
+      players.push( new Player( data[i] ) );
       //Find logged in player and keep track of them.
 
-      if ( playerData[i].isUser ){
+      if ( data[i].isUser ){
         currentPlayer = players[ players.length - 1 ];
       }
     }
@@ -26,64 +29,86 @@ var Players = function(){
 
   this.draw = noop;
 
-  this.getPlayers = function(){
+  var getPlayers = function(){
     return players;
   };
 
-  this.Player = function( properties ){
-    var that = this;
+  return {
+    getPlayers: getPlayers,
+    update: update,
+    draw: noop,
+    init: init
+  };
+})();
 
-    this.init = noop;
-    this.draw = noop;
+var Player = function( properties ){
+  var that = this,
+      noop = function(){ return null; };
 
-    this.update = function(){
-      // Find out if there's a wall or powerup or another player
+  this.init = noop;
+  this.draw = noop;
 
-      if ( that.isUser() ) {
-        var up = UserInput.isPressingUp(),
-            left = UserInput.isPressingLeft(),
-            right = UserInput.isPressingRight(),
-            down = UserInput.isPressingDown();
+  this.update = function(){
+    // Find out if there's a wall or powerup or another player
 
-        if ( up && left ){
+    if ( that.isUser() ) {
+      var up = UserInput.is('up'),
+          left = UserInput.is('left'),
+          right = UserInput.is('right'),
+          down = UserInput.is('down');
 
-        }
-      }
-    };
-
-    this.isUser = function(){
-      return that === currentPlayer;
-    };
-
-    this.getPosition = function(){
-      return properties.position;
-    };
-
-    this.getColor = function(){
-      return properties.color;
-    };
-
-    this.getIsTagged = function(){
-      return properties.isTagged;
-    };
-
-    var defaultValues = {
-      color: 'red',
-      position: {
-        x: 0,
-        y: 0
-      },
-      isTagged: false
-    };
-
-    for ( var attr in defaultValues ){
-      if ( properties[attr] === undefined ){
-        properties[attr] = defaultValues[attr];
+      if ( up && left ){
+        angle = 45;
+      } else if ( up && right ) {
+        angle = 315;
+      } else if ( down && left ) {
+        angle = 135;
+      } else if ( down && right ) {
+        angle = 225;
+      } else if ( left ) {
+        angle = 90;
+      } else if ( down ) {
+        angle = 180;
+      } else if ( right ) {
+        angle = 270;
+      } else {
+        angle = 0;
       }
     }
   };
-};
 
-// I added this to instantiate Players so code doesn't break,
-// feel free to change this to however it should be
-var PlayerList = new Players();
+  this.isUser = function(){
+    return that === currentPlayer;
+  };
+
+  this.getPosition = function(){
+    return {
+      x: properties.x,
+      y: properties.y
+    };
+  };
+
+  this.getColor = function(){
+    return properties.color;
+  };
+
+  this.getIsTagged = function(){
+    return properties.isTagged;
+  };
+
+  var x = properties.x,
+      y = properties.y,
+      defaultValues = {
+        color: 'red',
+        x: 0,
+        y: 0,
+        isTagged: false,
+        velocity: 1
+      };
+
+  for ( var attr in defaultValues ){
+    if ( properties[attr] === undefined ){
+      properties[attr] = defaultValues[attr];
+    }
+  }
+};
