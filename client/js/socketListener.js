@@ -14,6 +14,7 @@ socket.on('left', function(name) {
    console.log(name + " has left!");
 });
 
+//server sent players
 socket.on('updatedPlayers', function(data){
   for(var i = 0; i < players.length; i++) {
     players[i].update(data.x, data.y);

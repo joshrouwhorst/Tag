@@ -62,7 +62,7 @@ var UserInput = function () {
                     break;
             }
         }, false);
-    };
+    }
 
     this.update = function () {
         if (isUpKeyDown) {
@@ -90,11 +90,11 @@ var UserInput = function () {
             console.log("space");
         }
 
-    };
+    }
 
     this.draw = function (ctx) {
         //draw stuff here?
-    };
+    }
 
     // ----- uncomment the following to track key codes in console -----
     //document.onkeydown = function (event) {
@@ -114,4 +114,4 @@ var UserInput = function () {
 
     //    }
     //}
-};
+}

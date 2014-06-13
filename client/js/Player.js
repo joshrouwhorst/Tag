@@ -49,32 +49,46 @@ var Player = function( properties ){
   this.draw = noop;
 
   this.update = function(){
-    // Find out if there's a wall or powerup or another player
+    var up = UserInput.is('up'),
+        left = UserInput.is('left'),
+        right = UserInput.is('right'),
+        down = UserInput.is('down'),
+        newX = that.x, newY = that.y;
 
-    if ( that.isUser() ) {
-      var up = UserInput.is('up'),
-          left = UserInput.is('left'),
-          right = UserInput.is('right'),
-          down = UserInput.is('down');
+    moveThisMuch = level.TileSize * that.speed;
 
-      if ( up && left ){
-        angle = 45;
-      } else if ( up && right ) {
-        angle = 315;
-      } else if ( down && left ) {
-        angle = 135;
-      } else if ( down && right ) {
-        angle = 225;
-      } else if ( left ) {
-        angle = 90;
-      } else if ( down ) {
-        angle = 180;
-      } else if ( right ) {
-        angle = 270;
-      } else {
-        angle = 0;
-      }
+    if ( up && left ){
+      moveThisMuch = moveThisMuch / 2;
+      newX = that.x + moveThisMuch;
+      newY = that.y - moveThisMuch;
+    } else if ( up && right ) {
+      moveThisMuch = moveThisMuch / 2;
+      newX = that.x - moveThisMuch;
+      newY = that.y - moveThisMuch;
+    } else if ( down && left ) {
+      moveThisMuch = moveThisMuch / 2;
+      newX = that.x + moveThisMuch;
+      newY = that.y + moveThisMuch;
+    } else if ( down && right ) {
+      moveThisMuch = moveThisMuch / 2;
+      newX = that.x - moveThisMuch;
+      newY = that.y + moveThisMuch;
+    } else if ( left ) {
+      newX = that.x + moveThisMuch;
+    } else if ( down ) {
+      newY = that.y + moveThisMuch;
+    } else if ( right ) {
+      newX = that.x - moveThisMuch;
+    } else if ( up ) {
+      newY = that.y - moveThisMuch;
     }
+
+    // TODO: Call level to check if there is anything at the new coords.
+
+    that.x = Math.round(newX);
+    that.y = Math.round(newY);
+
+    // TODO: Send new coords to the server.
   };
 
   this.isUser = function(){
@@ -103,7 +117,7 @@ var Player = function( properties ){
         x: 0,
         y: 0,
         isTagged: false,
-        velocity: 1
+        speed: 1
       };
 
   for ( var attr in defaultValues ){
