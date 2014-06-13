@@ -2,38 +2,111 @@
 var Players = (function(){
   var noop = function(){ return null; },
       players = [],
-      currentPlayer;
+      currentPlayer,
+      currentPlayerId;
 
   var init = function(){
-    socket.emit('updatePlayers');
+    
   };
+  
+  var draw = function(ctx, camera){
+	var currentPlayer = getCurrentPlayer();
+	for(var x = 0; x <= players.length; x++){
+		if(players[x].id == currentPlayer.id){
+			//draw ourselves
+			if(players[x].getIsTagged()){
+				ctx.drawImage(graphics.PlayerHolder.playerIt, camera.translateX(x * this.TileSize), camera.translateY(y * this.TileSize));
+			}else{
+				ctx.drawImage(graphics.PlayerHolder.playerNormal, camera.translateX(x * this.TileSize), camera.translateY(y * this.TileSize));
+			}
+		}else{
+			if(players[x].getIsTagged()){
+				ctx.drawImage(graphics.PlayerHolder.opponentIt, camera.translateX(x * this.TileSize), camera.translateY(y * this.TileSize));
+			}else{
+				ctx.drawImage(graphics.PlayerHolder.opponentNormal, camera.translateX(x * this.TileSize), camera.translateY(y * this.TileSize));
+			}
+		}
+	}
+  }
 
-  var update = function(data){
-    //Find out what the user's pushing
+  var update = function( data ){
+    var found;
+
     if (!data) {
       return null;
     }
 
-    // Clears out the array but keeps all references to the array sync'd.
-    players.splice( 0, players.length );
-
     for ( var i = 0; i < data.length; i++ ){
-      players.push( new Player( data[i] ) );
-      //Find logged in player and keep track of them.
+      found = false;
 
-      if ( data[i].isUser ){
-        currentPlayer = players[ players.length - 1 ];
+      for ( var j = 0; j < players.length; j++ ){
+        if ( data[i].id === players[j].id ){
+          found = true;
+        }
+      }
+
+      if ( !found ){
+        players.push( new Player( data[i] ) );
       }
     }
-  };
 
-  this.draw = noop;
+    for ( var i = 0; i < players.length; i++ ){
+      found = false;
+
+      for ( var j = 0; j < data.length && !found; j++ ){
+        if ( players[i].id === data[j].id ){
+          players[i].update( data[j] );
+          found = true;
+        }
+      }
+
+      if ( !found ){
+        players.splice(i, 1);
+        i--;
+      }
+    }
+
+    setCurrentPlayer();
+  };
 
   var getPlayers = function(){
     return players;
   };
 
+  var getCurrentPlayer = function(){
+    return currentPlayer;
+  };
+
+  var getPlayerById = function( id ){
+    for ( var i = 0; i < players.length; i++ ){
+      if ( players[i].id == id ){
+        return players[i];
+      }
+    }
+
+    return null;
+  };
+
+  var setCurrentPlayer = function() {
+    for ( var i = 0; i < players.length; i++ ){
+      if ( !currentPlayer && players[i].id === currentPlayerId){
+        currentPlayer = players[i];
+        return true;
+      }
+    }
+
+    return false;
+  };
+
+  var setCurrentPlayerId = function( id ){
+    currentPlayerId = id;
+    setCurrentPlayer();
+  };
+
   return {
+    setCurrentPlayerId: setCurrentPlayerId,
+    getPlayerById: getPlayerById,
+    getCurrentPlayer: getCurrentPlayer,
     getPlayers: getPlayers,
     update: update,
     draw: noop,
@@ -48,47 +121,10 @@ var Player = function( properties ){
   this.init = noop;
   this.draw = noop;
 
-  this.update = function(){
-    var up = UserInput.is('up'),
-        left = UserInput.is('left'),
-        right = UserInput.is('right'),
-        down = UserInput.is('down'),
-        newX = that.x, newY = that.y;
-
-    moveThisMuch = level.TileSize * that.speed;
-
-    if ( up && left ){
-      moveThisMuch = moveThisMuch / 2;
-      newX = that.x + moveThisMuch;
-      newY = that.y - moveThisMuch;
-    } else if ( up && right ) {
-      moveThisMuch = moveThisMuch / 2;
-      newX = that.x - moveThisMuch;
-      newY = that.y - moveThisMuch;
-    } else if ( down && left ) {
-      moveThisMuch = moveThisMuch / 2;
-      newX = that.x + moveThisMuch;
-      newY = that.y + moveThisMuch;
-    } else if ( down && right ) {
-      moveThisMuch = moveThisMuch / 2;
-      newX = that.x - moveThisMuch;
-      newY = that.y + moveThisMuch;
-    } else if ( left ) {
-      newX = that.x + moveThisMuch;
-    } else if ( down ) {
-      newY = that.y + moveThisMuch;
-    } else if ( right ) {
-      newX = that.x - moveThisMuch;
-    } else if ( up ) {
-      newY = that.y - moveThisMuch;
+  this.update = function( _properties ){
+    for (var attr in _properties){
+      properties[attr] = _properties[attr];
     }
-
-    // TODO: Call level to check if there is anything at the new coords.
-
-    that.x = Math.round(newX);
-    that.y = Math.round(newY);
-
-    // TODO: Send new coords to the server.
   };
 
   this.isUser = function(){
@@ -119,6 +155,10 @@ var Player = function( properties ){
         isTagged: false,
         speed: 1
       };
+
+  if ( properties.id ) {
+    this.id = properties.id;
+  }
 
   for ( var attr in defaultValues ){
     if ( properties[attr] === undefined ){

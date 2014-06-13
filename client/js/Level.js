@@ -19,7 +19,8 @@ var Level = function(){
 					if(this.LevelMap[x][y] == "w"){
 					    ctx.drawImage(graphics.TextureHolder.wall, camera.translateX(x * this.TileSize), camera.translateY(y * this.TileSize));
 					}else{
-					    ctx.drawImage(graphics.TextureHolder.grass, camera.translateX(x * this.TileSize), camera.translateY(y * this.TileSize));
+						ctx.fillStyle = "green";
+						ctx.fillRect(camera.translateX(x * this.TileSize), camera.translateY(y * this.TileSize), this.TileSize, this.TileSize);
 					}
 					//ctx.fillRect(x * this.TileSize, y * this.TileSize , this.TileSize, this.TileSize);
 				}			

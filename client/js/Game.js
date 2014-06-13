@@ -55,10 +55,7 @@ var draw = function () {
         sounds.MusicPlayer.playNormalBackground();
 
 	level.draw(ctx, viewport);
-	var pList = getPlayersAsList();
-	_.each(pList, function(player) {
-		player.draw(ctx);
-	});
+	Players.draw(ctx, viewport);
 }
 
 //game loop
@@ -71,4 +68,3 @@ var main = function () {
 
 	then = now;
 };
-
