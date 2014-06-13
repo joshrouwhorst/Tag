@@ -7,6 +7,7 @@ socket.on('whatsYoName', function() {
 //someone connected
 socket.on('welcome', function(player) {
    alert(player.name + " has connected!");
+   players.push(new Player(player.id, player.name));
 });
 
 //someone left

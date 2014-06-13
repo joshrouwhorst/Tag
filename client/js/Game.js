@@ -9,6 +9,7 @@ document.getElementById("game").appendChild(canvas);
 var then = Date.now();
 var level = new Level();
 //var players = new Players();
+var players = [];
 
 var init = function(){
 	//players.init();
@@ -21,7 +22,11 @@ var update = function(){
 }
 
 var draw = function(){
-	level.draw(ctx);
+	if(level.loaded)
+		level.draw(ctx);
+	for(var i = 0; i < players.length; i++) {
+		players[i].draw(ctx);
+	}
 }
 
 //game loop
