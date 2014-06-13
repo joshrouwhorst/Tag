@@ -1,0 +1,9 @@
+C:\rwoodcox\BitmapMapReaderToArray\BitmapMapReaderToArray\bin\Debug\BitmapMapReaderToArray.exe.config
+C:\rwoodcox\BitmapMapReaderToArray\BitmapMapReaderToArray\bin\Debug\BitmapMapReaderToArray.exe
+C:\rwoodcox\BitmapMapReaderToArray\BitmapMapReaderToArray\bin\Debug\BitmapMapReaderToArray.pdb
+C:\rwoodcox\BitmapMapReaderToArray\BitmapMapReaderToArray\obj\Debug\BitmapMapReaderToArray.csprojResolveAssemblyReference.cache
+C:\rwoodcox\BitmapMapReaderToArray\BitmapMapReaderToArray\obj\Debug\BitmapMapReaderToArray.Properties.Resources.resources
+C:\rwoodcox\BitmapMapReaderToArray\BitmapMapReaderToArray\obj\Debug\BitmapMapReaderToArray.csproj.GenerateResource.Cache
+C:\rwoodcox\BitmapMapReaderToArray\BitmapMapReaderToArray\obj\Debug\BitmapMapReaderToArray.exe
+C:\rwoodcox\BitmapMapReaderToArray\BitmapMapReaderToArray\obj\Debug\BitmapMapReaderToArray.pdb
+C:\rwoodcox\BitmapMapReaderToArray\BitmapMapReaderToArray\obj\Debug\BitmapMapReaderToArray.MainForm.resources

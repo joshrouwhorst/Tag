@@ -1,71 +1,45 @@
 var Level = function(){
-	this.LevelMap = new Array();
-	this.PlayerMap = new Array();
-	this.TileX = 250;
-	this.TileY = 250;
+	self = this;
+	this.LevelMap = [];
+	this.PlayerMap = [];
 	this.TileSize = 32;
-	
-	//w = wall
-	//b = blank
-	this.createLevel = function(){
-		for(var x = 0; x <= this.TileX; x++){
-			var ArrayToAdd = new Array();
-			for(var y = 0; y <= this.TileY; y++){
-				if(x == 0 || y == 0 || x == this.TileX || y == this.TileY){
-					ArrayToAdd.push('w');
-				}else{
-					ArrayToAdd.push('e');
-				}
-			}
-			this.LevelMap.push(ArrayToAdd);
-		}
+	this.loaded = false;
+
+	this.init = function(map) {
+		self.LevelMap = map;
+		self.loaded = true;
 	}
-	
-	
-	this.init = function(){
-		this.createLevel();
-		//socket.on("initiatedLevel", function(data){
-			//this.LevelMap = data;
-		//});
-	}	
-	
-	this.placePlayers = function(){
-		for(var i = 0; i <= player.length; i++){
-			var coord = players[i].getPosition();
-			this.PlayerMap[coord.x][coord.y] = player;
-		}
-	}
-	
+
 	this.update = function(){
-		this.placePlayers();
 	}
-	
+
 	this.drawLevel = function(ctx){
-		for(var x = 0; x <= this.TileX; x++){
-			for(var y = 0; y <= this.TileY; y++){
-				if(this.LevelMap[x][y] == "w"){
-					ctx.fillStyle = "black";
-				}else{
-					ctx.fillStyle = "gray";
-				}
-				ctx.fillRect(x * this.TileSize, y * this.TileSize , this.TileSize, this.TileSize);
-			}			
+		if(this.LevelMap != undefined){
+			for(var x = 0; x < this.LevelMap.length - 1; x++){
+				for(var y = 0; y < this.LevelMap[x].length - 1; y++){
+					if(this.LevelMap[x][y] == "w"){
+						ctx.drawImage(graphics.TextureHolder.wall, x * this.TileSize, y * this.TileSize);
+					}else{
+						ctx.drawImage(graphics.TextureHolder.grass, x * this.TileSize, y * this.TileSize);
+					}
+					//ctx.fillRect(x * this.TileSize, y * this.TileSize , this.TileSize, this.TileSize);
+				}			
+			}
 		}
 	}
-	
+
 	this.drawPlayers = function(ctx){
 		for(var x = 0; x <= this.TileX; x++){
 			for(var y = 0; y <= this.TileY; y++){
-				if(this.LevelMap[x][y] instanceof players.Player){
+				if(this.LevelMap[x][y] instanceof Player){ //Made Player a global class
 					ctx.fillStyle = this.LevelMap[x][y].Color;
 					ctx.fillRect(x * this.TileSize, y * this.TileSize , this.TileSize, this.TileSize);
-				}				
-			}			
+				}
+			}
 		}
 	}
-	
+
 	this.draw = function(ctx){
-		this.drawLevel(ctx);
-		this.drawPlayers(ctx);
+		self.drawLevel(ctx);
 	}
 }

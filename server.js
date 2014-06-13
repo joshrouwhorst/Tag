@@ -6,9 +6,14 @@ var _ = require('underscore');
 
 //import game logic
 var Player = require('./server/GameState.js').Player;
+var level = require("./server/resources/level.js").Level;
 
 //start server
-server.listen(process.env.PORT || 3000);
+var port = process.env.PORT || 3000;
+server.listen(port);
+console.log('==============================');
+console.log('Server started on port ' + port + '...');
+console.log('==============================');
 
 var players = {};
 
@@ -17,11 +22,12 @@ io.sockets.on('connection', function(socket) {
    var thisPlayer;
 
    //request a name
-   //socket.emit('whatsYoName');
+   socket.emit('whatsYoName');
    socket.on('heresMyName', function(name) {
       thisPlayer = new Player(socket.id, socket, name);
       players[socket.id] = thisPlayer;
       socketBroadcast('welcome', thisPlayer.getSocketSafe());
+      socketBroadcast('heresTheLevel', level);
    });
 
    //client asked for player information
@@ -31,7 +37,8 @@ io.sockets.on('connection', function(socket) {
 
    //remove from players list when disconnected
    socket.on('disconnect', function() {
-      socket_broadcast('left', players[socket.id].name);
+      var playerLeft = players[socket.id];
+      socketBroadcast('left', playerLeft.name);
       delete players[socket.id];
    });
 
@@ -51,13 +58,13 @@ function socketBroadcast(emitKey, message) {
 
 function getPlayersAsList() {
    var playerKeys = Object.keys(players);
-   var players = [];
+   var pList = [];
    _.each(playerKeys, function(key) {
       var player = players[key];
-      players.add(player);
+      pList.push(player.getSocketSafe());
    });
 
-   return players;
+   return pList;
 }
 
 //server client contents statically

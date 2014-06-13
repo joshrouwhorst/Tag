@@ -1,22 +1,26 @@
-var socket = io.connect();
-
 //server asked for my name
 socket.on('whatsYoName', function() {
-   var name = window.prompt("What's your name?", "");
-   socket.emit('heresMyName', name);
+   //var name = window.prompt("What's your name?", "");
+   socket.emit('heresMyName', "");
 });
 
 //someone connected
 socket.on('welcome', function(player) {
-   alert(player.name + " has connected!");
+   console.log(player.name + " has connected!");
 });
 
 //someone left
 socket.on('left', function(name) {
-   alert(name + " has left!");
+   console.log(name + " has left!");
 });
 
 //server sent players
 socket.on('updatedPlayers', function(data){
-  Players.update(data);
+  for(var i = 0; i < players.length; i++) {
+    players[i].update(data.x, data.y);
+  }
+});
+
+socket.on("heresTheLevel", function(data){
+  level.init(data);
 });
