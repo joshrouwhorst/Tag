@@ -52,16 +52,15 @@ var draw = function(){
 		player.draw(ctx);
 	});
 }
-}
 
 //game loop
 var main = function () {
 	var now = Date.now();
 	var delta = now - then;
-	
+
 	update();
 	draw();
-	
+
 	then = now;
 };
 
