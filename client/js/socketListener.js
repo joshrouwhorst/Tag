@@ -6,7 +6,6 @@ socket.on('whatsYoName', function() {
 
 //heres your player id
 socket.on('heresYourPlayerId', function(id) {
-debugger;
   Players.setCurrentPlayerId( id );
 });
 
@@ -22,7 +21,7 @@ socket.on('left', function(name) {
 
 //server sent players
 socket.on('updatedPlayers', function(data){
-  console.log(data[0].x + ", " + data[0].y)
+  console.log('spam');
   Players.update(data);
 });
 

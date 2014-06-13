@@ -34,7 +34,7 @@ io.sockets.on('connection', function(socket) {
 
    //client asked for player information
    socket.on('updatePlayers', function() {
-      socket.emit('updatedPlayers', getPlayersAsList());
+      socket.emit('updatedPlayers', getPlayersSocketSafe());
    });
 
    //remove from players list when disconnected
@@ -65,7 +65,7 @@ io.sockets.on('connection', function(socket) {
 
    socket.on('tryTag', function() {
       //Make sure player is actually tagged (it) and it's tag timer is 0
-      if(socket.isTagged && socket.tagTimer <= 0){
+      if(players[socket.id].isTagged && players[socket.id].tagTimer <= 0){
          var pList = getPlayersAsList();
          var aLeg = 0;
          var bLeg = 0;
@@ -76,14 +76,14 @@ io.sockets.on('connection', function(socket) {
             //Make sure the player is not itself
             if (socket.id != player.id){
                //Trig! - find Hypotenuse (distance)
-               aleg = player.x - socket.x;
-               bLeg = player.y - socket.y;
+               aleg = player.x - players[socket.id].x;
+               bLeg = player.y - players[socket.id].y;
                cLeg = Math.sqrt(Math.pow(aLeg, 2) + Math.pow(bLeg, 2));
 
                //check distance (<= than player radius)
-               if (cLeg <= socket.radius){
+               if (cLeg <= players[socket.id].radius){
                   //Current player no longer it
-                  socket.isTagged = false;
+                  players[socket.id].isTagged = false;
 
                   //Target player is now it!
                   player.isTagged = true;
@@ -104,6 +104,15 @@ function socketBroadcast(emitKey, message, callback) {
    if(callback) {
       callback();
    }
+}
+
+function getPlayersSocketSafe() {
+   var playerKeys = Object.keys(players);
+   var playersSocketSafe = {};
+   _.each(playerKeys, function(key) {
+      playersSocketSafe[key] = players[key].getSocketSafe();
+   });
+   return playersSocketSafe;
 }
 
 function getPlayersAsList() {

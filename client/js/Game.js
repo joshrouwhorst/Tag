@@ -52,7 +52,6 @@ var draw = function () {
 		return;
 	}
     viewport.setFocus(player.getPosition().x, player.getPosition().y);
-    console.log("x: " + player.getPosition().x + " y: " + player.getPosition().y);
 	
 	if (sounds.MusicPlayer.gameNormalMusicLoaded && !sounds.MusicPlayer.isNormalBackgroundPlaying())
         sounds.MusicPlayer.playNormalBackground();
@@ -63,7 +62,6 @@ var draw = function () {
 
 //game loop
 var main = function () {
-	console.log("stuff");
 	var now = Date.now();
 	var delta = now - then;
 

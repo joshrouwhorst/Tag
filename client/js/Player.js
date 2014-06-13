@@ -33,7 +33,6 @@ var Players = (function(){
 
   var update = function( data ){
     var id;
-
     if (!data) {
       return null;
     }
@@ -78,7 +77,7 @@ var Players = (function(){
   };
 
   var setCurrentPlayer = function() {
-    if ( players[id] ){
+    if ( players[currentPlayerId] ){
       currentPlayer = players[currentPlayerId];
       return true;
     }
@@ -109,10 +108,15 @@ var Player = function( properties ){
   this.init = noop;
   this.draw = noop;
 
-  this.update = function( _properties ){
-    for (var attr in _properties){
+  this.update = function( _properties ) {
+    var keys = Object.keys(_properties);
+    _.each(keys, function(key) {
+      properties[key] = _properties[key];
+    });
+
+    /*for (var attr in _properties){
       properties[attr] = _properties[attr];
-    }
+    }*/
   };
 
   this.isUser = function(){

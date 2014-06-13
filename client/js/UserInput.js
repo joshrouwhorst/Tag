@@ -87,7 +87,7 @@ var UserInput = function () {
         }
         if (isSpaceKeyDown) {
             //TAG!
-            console.log("space");
+            socket.emit('tryTag');
         }
 
     }
