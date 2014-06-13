@@ -1,6 +1,5 @@
 var Players = function(){
-  var noop = function(){ return null; },
-      players = this;
+  var noop = function(){ return null; };
 
   this.init = function(){
     socket.emit('updatePlayers');
@@ -84,3 +83,7 @@ var Players = function(){
     }
   };
 };
+
+// I added this to instantiate Players so code doesn't break,
+// feel free to change this to however it should be
+var PlayerList = new Players();

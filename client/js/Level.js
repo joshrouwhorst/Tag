@@ -30,7 +30,7 @@ var Level = function(){
 	}	
 	
 	this.placePlayers = function(){
-		for(var i = 0; i <= player.length; i++){
+		for(var i = 0; i <= players.length; i++){
 			var coord = players[i].getPosition();
 			this.PlayerMap[coord.x][coord.y] = player;
 		}
