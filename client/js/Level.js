@@ -2,7 +2,7 @@ var Level = function(){
 	this.LevelMap = new Array();
 	this.PlayerMap = new Array();
 	this.TileSize = 32;
-	
+
 	this.init = function(map) {
 		this.LevelMap = map;
 	}	
