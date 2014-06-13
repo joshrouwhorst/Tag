@@ -13,9 +13,27 @@ var lx = 0, ly = 0;
 var viewport = new Camera();
 
 var graphics = new Graphics();
+var sounds = new Sounds();
+var myPlayerId = -1;
+var players = {};
+
+function getPlayersAsList() {
+	var playerKeys = Object.keys(players);
+	var pList = [];
+	_.each(playerKeys, function(key) {
+		var player = players[key];
+		pList.push(player.getSocketSafe());
+	});
+	return pList;
+}
+
+function getMyPlayer() {
+	return players[myPlayerId];
+}
 
 var init = function(){
 	graphics.init();
+	sounds.init();
 	userInput.init();
 	viewport.init(canvas.width, canvas.height, level.LevelMap[0].length * level.TileSize, level.LevelMap.length * level.TileSize);
 }
@@ -29,22 +47,23 @@ var update = function(){
 var draw = function () {
 
     //Set focus 
-	debugger;
     var player = Players.getCurrentPlayer();
 	if(player == undefined){
 		return;
 	}
     viewport.setFocus(player.getPosition().x, player.getPosition().y);
     console.log("x: " + player.getPosition().x + " y: " + player.getPosition().y);
-    //ly = ly + 50;
-    //viewport.setFocus(0, ly);
-
+	
+	if (sounds.MusicPlayer.gameNormalMusicLoaded && !sounds.MusicPlayer.isNormalBackgroundPlaying())
+        sounds.MusicPlayer.playNormalBackground();
+		
 	level.draw(ctx, viewport);
 	Players.draw(ctx, viewport);
 }
 
 //game loop
 var main = function () {
+	console.log("stuff");
 	var now = Date.now();
 	var delta = now - then;
 

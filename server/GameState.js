@@ -4,8 +4,13 @@ function Player(id, socket, name) {
     var self = this;
     this.id = id;
     this.name = name || "Anonymous";
-    this.x = 60;
-    this.y = 60;
+    this.radius = Math.floor(BOARD_SETTINGS.tileSize / 2);
+    this.isTagged = false;
+    this.tagTimer = 0;
+    //this.x = Math.random() * BOARD_SETTINGS.maxX * BOARD_SETTINGS.tileSize;
+    //this.y = Math.random() * BOARD_SETTINGS.maxY * BOARD_SETTINGS.tileSize;
+    this.x = 35;
+    this.y = 35;
     this.socket = socket;
     this.speed = 15;
 
@@ -13,6 +18,8 @@ function Player(id, socket, name) {
       return {
          id: self.id,
          name: self.name,
+         isTagged: self.isTagged,
+         tagTimer: self.tagTimer,
          x: self.x,
          y: self.y
       }
@@ -20,37 +27,47 @@ function Player(id, socket, name) {
    
     //Player trying to move up
     this.moveUp = function() {
-        return this.movePlayerPosition(self.x, self.y + self.speed);
+        return this.movePlayerPosition(
+                                        self.x, 
+                                        self.y - self.speed, 
+                                        self.x, 
+                                        self.y - self.speed + self.radius);
    }
    
     //Player trying to move down
     this.moveDown = function() {
-        return this.movePlayerPosition(self.x, self.y - self.speed);
+        return this.movePlayerPosition(
+                                        self.x, 
+                                        self.y + self.speed,
+                                        self.x,
+                                        self.y + self.speed + self.radius);
    }
    
     //player trying to move right
     this.moveRight = function() {
-        return this.movePlayerPosition(self.x + self.speed, self.y);
+        return this.movePlayerPosition(
+                                        self.x + self.speed,
+                                        self.y,
+                                        self.x + self.speed + self.radius,
+                                        self.y);
    }
    
     //player trying to move left
     this.moveLeft = function() {
-        return this.movePlayerPosition(self.x - self.speed, self.y);
-    }
-
-    //player trying to tag
-    this.pressedTag = function () {
-        //figure out if player is touching another player
-        return false;
+        return this.movePlayerPosition(
+                                        self.x - self.speed,
+                                        self.y,
+                                        self.x - self.speed - self.radius,
+                                        self.y);
     }
 
     //Calculate coordinate player is trying to move to
-    this.movePlayerPosition = function (newX, newY) {
+    this.movePlayerPosition = function (newX, newY, checkX, checkY) {
         var didPlayerMove = false;
 
-        //Get tile (indecies in board/map array) for newX, newY pixel coordinates
-        var xTileCoord = Math.floor(newX / BOARD_SETTINGS.tileSize);
-        var yTileCoord = Math.floor(newY / BOARD_SETTINGS.tileSize);
+        //Get tile (indecies in board/map array) for checkX, checkY pixel coordinates (factoring in radius of player)
+        var xTileCoord = Math.floor(checkX / BOARD_SETTINGS.tileSize);
+        var yTileCoord = Math.floor(checkY / BOARD_SETTINGS.tileSize);
 
         //Make sure if no wall is at the specified tile
         var tileOnMap = level[xTileCoord][yTileCoord];

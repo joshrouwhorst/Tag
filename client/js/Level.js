@@ -41,6 +41,6 @@ var Level = function(){
 	}
 
 	this.draw = function(ctx, camera){
-		self.drawLevel(ctx, camera);
+		this.drawLevel(ctx, camera);
 	}
 }

@@ -16,6 +16,7 @@ console.log('Server started on port ' + port + '...');
 console.log('==============================');
 
 var players = {};
+console.log(players);
 
 io.sockets.on('connection', function(socket) {
    var connection = this;
@@ -26,6 +27,7 @@ io.sockets.on('connection', function(socket) {
    socket.on('heresMyName', function(name) {
       thisPlayer = new Player(socket.id, socket, name);
       players[socket.id] = thisPlayer;
+      console.log(getPlayersAsList().length);
       socket.emit('heresYourPlayerId', thisPlayer.id);
       socketBroadcast('welcome', thisPlayer.getSocketSafe());
       socketBroadcast('heresTheLevel', level);
@@ -38,9 +40,11 @@ io.sockets.on('connection', function(socket) {
 
    //remove from players list when disconnected
    socket.on('disconnect', function() {
-      socketBroadcast('left', players[socket.id].name, function() {
-         delete players[socket.id];
-      });
+      if(typeof players[socket.id] !== 'undefined') {
+         socketBroadcast('left', players[socket.id].name, function() {
+            delete players[socket.id];
+         });
+      }
    });
 
    //client user controls
@@ -58,7 +62,36 @@ io.sockets.on('connection', function(socket) {
 
    socket.on('goRight', function() {
       players[socket.id].moveRight();
-      console.log(players[socket.id].getSocketSafe());
+   });
+
+   socket.on('tryTag', function() {
+      //Make sure player is actually tagged (it) and it's tag timer is 0
+      if(socket.isTagged && socket.tagTimer <= 0){
+         var pList = getPlayersAsList();
+         var aLeg = 0;
+         var bLeg = 0;
+         var cLeg = 0;
+
+         //loop through the list
+         _each(pList, function(player){
+            //Make sure the player is not itself
+            if (socket.id != player.id){
+               //Trig! - find Hypotenuse (distance)
+               aleg = player.x - socket.x;
+               bLeg = player.y - socket.y;
+               cLeg = Math.sqrt(Math.pow(aLeg, 2) + Math.pow(bLeg, 2));
+
+               //check distance (<= than player radius)
+               if (cLeg <= socket.radius){
+                  //Current player no longer it
+                  socket.isTagged = false;
+
+                  //Target player is now it!
+                  player.isTagged = true;
+               }
+            }
+         });
+      }
    });
 });
 
