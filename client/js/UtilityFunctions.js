@@ -3,5 +3,5 @@ function Util_GetRandomPosition(canvasWidth, canvasHeight){
 	var y = Math.random() * height;
 	
 	//return array with x-coord as element 0, and y-coord as element 1
-	return new int[]{x, y};
+	return [x, y];
 }
