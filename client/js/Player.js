@@ -5,8 +5,28 @@ var Players = (function(){
       currentPlayer;
 
   var init = function(){
-    socket.emit('updatePlayers');
+    
   };
+  
+  var draw = function(ctx, camera){
+	var currentPlayer = getCurrentPlayer();
+	for(var x = 0; x <= players.length; x++){
+		if(players[x].id == currentPlayer.id){
+			//draw ourselves
+			if(players[x].getIsTagged()){
+				ctx.drawImage(graphics.PlayerHolder.playerIt, camera.translateX(x * this.TileSize), camera.translateY(y * this.TileSize));
+			}else{
+				ctx.drawImage(graphics.PlayerHolder.playerNormal, camera.translateX(x * this.TileSize), camera.translateY(y * this.TileSize));
+			}
+		}else{
+			if(players[x].getIsTagged()){
+				ctx.drawImage(graphics.PlayerHolder.opponentIt, camera.translateX(x * this.TileSize), camera.translateY(y * this.TileSize));
+			}else{
+				ctx.drawImage(graphics.PlayerHolder.opponentNormal, camera.translateX(x * this.TileSize), camera.translateY(y * this.TileSize));
+			}
+		}
+	}
+  }
 
   var update = function(data){
     var found;

@@ -33,10 +33,11 @@ var draw = function () {
     //var player = Players.getPlayers()[0];
     //viewport.setFocus(player.getPosition.x, player.getPosition.y);
     
-    ly = ly + 50;
-    viewport.setFocus(0, ly);
+    //ly = ly + 50;
+    //viewport.setFocus(0, ly);
 
 	level.draw(ctx, viewport);
+	Players.draw(ctx, viewport);
 }
 
 //game loop
