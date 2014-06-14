@@ -24,7 +24,8 @@ io.sockets.on('connection', function(socket) {
    //request a name
    socket.emit('whatsYoName');
    socket.on('heresMyName', function(name) {
-      thisPlayer = new Player(socket.id, socket, name);
+       thisPlayer = new Player(socket.id, socket, name);
+       thisPlayer.isTagged = !isSomeoneIt();
       players[socket.id] = thisPlayer;
       console.log(getPlayersAsList().length);
       socket.emit('heresYourPlayerId', thisPlayer.id);
@@ -76,7 +77,7 @@ io.sockets.on('connection', function(socket) {
          var cLeg = 0;
 
          //loop through the list
-         _each(pList, function(player){
+         _.each(pList, function(player){
             //Make sure the player is not itself
             if (socket.id != player.id){
                //Trig! - find Hypotenuse (distance)
@@ -90,7 +91,7 @@ io.sockets.on('connection', function(socket) {
                   players[socket.id].isTagged = false;
 
                   //Target player is now it!
-                  player.isTagged = true;
+                  players[player.id].isTagged = true;
 
                   socket.emit('someoneWasTagged', player.id)
                }
@@ -98,6 +99,18 @@ io.sockets.on('connection', function(socket) {
          });
       }
    });
+
+   var isSomeoneIt = function () {
+       var pList = getPlayersAsList();
+       var someoneIsIt = false;
+       //loop through the list
+       _.each(pList, function (player) {
+           if (player.isTagged)
+               someoneIsIt = true;
+       });
+
+       return someoneIsIt;
+   }
 });
 
 function socketBroadcast(emitKey, message, callback) {

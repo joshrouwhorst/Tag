@@ -15,14 +15,14 @@ var Level = function(){
 	this.drawLevel = function(ctx, camera){
 		if(this.LevelMap != undefined){
 			for(var x = 0; x < this.LevelMap.length - 1; x++){
-				for(var y = 0; y < this.LevelMap[x].length - 1; y++){
-					if(this.LevelMap[x][y] == "w"){
-					    ctx.fillStyle = "black";
-						ctx.fillRect(camera.translateX(x * this.TileSize), camera.translateY(y * this.TileSize), this.TileSize, this.TileSize);
-					}else{
-						ctx.fillStyle = "green";
-						ctx.fillRect(camera.translateX(x * this.TileSize), camera.translateY(y * this.TileSize), this.TileSize, this.TileSize);
-					}
+			    for (var y = 0; y < this.LevelMap[x].length - 1; y++) {
+			        if (camera.isBlockVisible(x * this.TileSize, y * this.TileSize, this.TileSize)) {
+			            if (this.LevelMap[x][y] == "w") {
+			                ctx.drawImage(graphics.TextureHolder.wall, camera.translateX(x * this.TileSize), camera.translateY(y * this.TileSize));
+			            } else {
+			                ctx.drawImage(graphics.TextureHolder.grass, camera.translateX(x * this.TileSize), camera.translateY(y * this.TileSize));
+			            }
+			        }
 					//ctx.fillRect(x * this.TileSize, y * this.TileSize , this.TileSize, this.TileSize);
 				}			
 			}

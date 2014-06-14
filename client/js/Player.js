@@ -12,23 +12,27 @@ var Players = (function(){
   var draw = function(ctx, camera){
 	//var currentPlayer = getCurrentPlayer();
 	for(var a = 0; a < Object.keys(players).length; a++){
-    var x = Object.keys(players)[a];
-		var i = players[x].getPosition().x;
-		var j = players[x].getPosition().y;
-		if(players[x].id == getCurrentPlayer().id){
-			//draw ourselves
-			if(players[x].getIsTagged()){
-				ctx.drawImage(graphics.PlayerHolder.playerIt, camera.translateX(i), camera.translateY(j));
-			}else{
-				ctx.drawImage(graphics.PlayerHolder.playerNormal, camera.translateX(i), camera.translateY(j));
-			}
-		}else{
-			if(players[x].getIsTagged()){
-				ctx.drawImage(graphics.PlayerHolder.opponentIt, camera.translateX(i), camera.translateY(j));
-			}else{
-				ctx.drawImage(graphics.PlayerHolder.opponentNormal, camera.translateX(i), camera.translateY(j));
-			}
-		}
+	    var x = Object.keys(players)[a];
+	    if (players[x] != undefined) {
+	        var i = players[x].getPosition().x;
+	        var j = players[x].getPosition().y;
+	        if (camera.isBlockVisible(i, j, level.TileSize)) {
+	            if (players[x].id == getCurrentPlayer().id) {
+	                //draw ourselves
+	                if (players[x].getIsTagged()) {
+	                    ctx.drawImage(graphics.PlayerHolder.playerIt, camera.translateX(i), camera.translateY(j));
+	                } else {
+	                    ctx.drawImage(graphics.PlayerHolder.playerNormal, camera.translateX(i), camera.translateY(j));
+	                }
+	            } else {
+	                if (players[x].getIsTagged()) {
+	                    ctx.drawImage(graphics.PlayerHolder.opponentIt, camera.translateX(i), camera.translateY(j));
+	                } else {
+	                    ctx.drawImage(graphics.PlayerHolder.opponentNormal, camera.translateX(i), camera.translateY(j));
+	                }
+	            }
+	        }
+	    }
 	}
   }
 
@@ -78,9 +82,12 @@ var Players = (function(){
   };
 
   var setCurrentPlayer = function() {
-    if ( players[currentPlayerId] ){
-      currentPlayer = players[currentPlayerId];
-      return true;
+    if (players[currentPlayerId]) {
+        if (currentPlayer != undefined && !currentPlayer.getIsTagged() && players[currentPlayerId].getIsTagged())
+            sounds.FXPlayer.playTaggedPlayer();
+
+        currentPlayer = players[currentPlayerId];
+        return true;
     }
 
     return false;

@@ -27,13 +27,25 @@ var Camera = function () {
             boundX = 0;
         //y
         if (y >= (MapHeight - (ViewportHeight / 2)))
-            boundY = ViewportHeight - MapHeight;
+            boundY = (ViewportHeight - MapHeight);
         else if (y >= (ViewportHeight / 2))
             boundY = 0 - (y - (ViewportHeight / 2));
         else
             boundY = 0;
 
         upperBound = [boundX, boundY];
+    }
+
+    this.isBlockVisible = function(x, y, tileSize) {
+        var tX = this.translateX(x);
+        var tY = this.translateY(y);
+        var tX2 = tX + tileSize;
+        var tY2 = tY + tileSize;
+
+        var topLeftShown = tX >= 0 && tX <= ViewportWidth && tY >= 0 && tY <= ViewportHeight;
+        var bottomRightShown = tX2 >= 0 && tX2 <= ViewportWidth && tY2 >= 0 && tY2 <= ViewportHeight;
+
+        return topLeftShown || bottomRightShown;
     }
 
     this.translateX = function (x) {
