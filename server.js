@@ -20,6 +20,13 @@ app.use('/client', express.static(__dirname + '/client'));
 app.get('/', function(req, res) { res.sendfile(__dirname+'/client/game.html'); });
 
 
+//socket io config
+io.configure(function () { 
+  io.set("transports", ["xhr-polling"]); 
+  io.set("polling duration", 10);
+  io.set('log level', 1)
+});
+
 //GAME LOGIC
 var players = {};
 
