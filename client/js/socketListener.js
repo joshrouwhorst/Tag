@@ -19,9 +19,11 @@ socket.on('left', function(name) {
  console.log(name + " has left!");
 });
 
+var i = 0;
 //server sent players
 socket.on('updatedPlayers', function(data){
   Players.update(data);
+  console.log(i++);
 });
 
 socket.on("heresTheLevel", function (data) {
