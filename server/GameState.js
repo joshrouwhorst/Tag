@@ -7,12 +7,10 @@ function Player(id, socket, name) {
     this.radius = Math.floor(BOARD_SETTINGS.tileSize / 2);
     this.isTagged = false;
     this.tagTimer = 0;
-    //this.x = Math.random() * BOARD_SETTINGS.maxX * BOARD_SETTINGS.tileSize;
-    //this.y = Math.random() * BOARD_SETTINGS.maxY * BOARD_SETTINGS.tileSize;
-    this.x = 35;
-    this.y = 35;
+    this.x = Math.random() * BOARD_SETTINGS.maxX * BOARD_SETTINGS.tileSize;
+    this.y = Math.random() * BOARD_SETTINGS.maxY * BOARD_SETTINGS.tileSize;
     this.socket = socket;
-    this.speed = 15;
+    this.speed = 11;
 
    this.getSocketSafe = function() {
       return {

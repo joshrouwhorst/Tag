@@ -15,66 +15,67 @@ console.log('==============================');
 console.log('Server started on port ' + port + '...');
 console.log('==============================');
 
+//server client contents statically
+app.use('/client', express.static(__dirname + '/client'));
+app.get('/', function(req, res) { res.sendfile(__dirname+'/client/game.html'); });
+
+
+//GAME LOGIC
 var players = {};
 
 io.sockets.on('connection', function(socket) {
-   var connection = this;
-   var thisPlayer;
+ var connection = this;
+ var thisPlayer;
 
    //request a name
    socket.emit('whatsYoName');
    socket.on('heresMyName', function(name) {
-       thisPlayer = new Player(socket.id, socket, name);
-       thisPlayer.isTagged = !isSomeoneIt();
-      players[socket.id] = thisPlayer;
-      console.log(getPlayersAsList().length);
-      socket.emit('heresYourPlayerId', thisPlayer.id);
-      socketBroadcast('welcome', thisPlayer.getSocketSafe());
-      socketBroadcast('heresTheLevel', level);
-   });
-
-   //client asked for player information
-   socket.on('updatePlayers', function() {
-      socket.emit('updatedPlayers', getPlayersSocketSafe());
+     thisPlayer = new Player(socket.id, socket, name);
+     thisPlayer.isTagged = !isSomeoneIt();
+     players[socket.id] = thisPlayer;
+     console.log(getPlayersAsList().length);
+     socket.emit('heresYourPlayerId', thisPlayer.id);
+     socketBroadcast('welcome', thisPlayer.getSocketSafe());
+     socketBroadcast('heresTheLevel', level);
    });
 
    //remove from players list when disconnected
    socket.on('disconnect', function() {
-      if(typeof players[socket.id] !== 'undefined') {
-         socketBroadcast('left', players[socket.id].name, function() {
-            delete players[socket.id];
-         });
-      }
-   });
+    if(typeof players[socket.id] !== 'undefined') {
+     socketBroadcast('left', players[socket.id].name, function() {
+      delete players[socket.id];
+    });
+   }
+ });
 
    //client user controls
    socket.on('goUp', function() {
-       if (!players[socket.id].moveUp())
-           socket.emit('collisionDetected');
+     if (!players[socket.id].moveUp())
+       socket.emit('collisionDetected');
    });
 
    socket.on('goDown', function() {
-       if (!players[socket.id].moveDown())
-           socket.emit('collisionDetected');
+     if (!players[socket.id].moveDown())
+       socket.emit('collisionDetected');
    });
 
    socket.on('goLeft', function() {
-       if(!players[socket.id].moveLeft())
-           socket.emit('collisionDetected');
+     if(!players[socket.id].moveLeft())
+       socket.emit('collisionDetected');
    });
 
    socket.on('goRight', function () {
-       if(!players[socket.id].moveRight())
-           socket.emit('collisionDetected');
+     if(!players[socket.id].moveRight())
+       socket.emit('collisionDetected');
    });
 
    socket.on('tryTag', function() {
       //Make sure player is actually tagged (it) and it's tag timer is 0
       if(players[socket.id].isTagged && players[socket.id].tagTimer <= 0){
-         var pList = getPlayersAsList();
-         var aLeg = 0;
-         var bLeg = 0;
-         var cLeg = 0;
+       var pList = getPlayersAsList();
+       var aLeg = 0;
+       var bLeg = 0;
+       var cLeg = 0;
 
          //loop through the list
          _.each(pList, function(player){
@@ -94,57 +95,57 @@ io.sockets.on('connection', function(socket) {
                   players[player.id].isTagged = true;
 
                   socket.emit('someoneWasTagged', player.id)
-               }
-            }
-         });
-      }
-   });
+                }
+              }
+            });
+       }
+     });
 
-   var isSomeoneIt = function () {
-       var pList = getPlayersAsList();
-       var someoneIsIt = false;
+var isSomeoneIt = function () {
+ var pList = getPlayersAsList();
+ var someoneIsIt = false;
        //loop through the list
        _.each(pList, function (player) {
-           if (player.isTagged)
-               someoneIsIt = true;
+         if (player.isTagged)
+           someoneIsIt = true;
        });
 
        return someoneIsIt;
-   }
-});
-
-function socketBroadcast(emitKey, message, callback) {
-   var playerKeys = Object.keys(players);
-   _.each(playerKeys, function(key) {
-      var player = players[key];
-      player.socket.emit(emitKey, message);
+     }
    });
 
-   if(callback) {
-      callback();
-   }
+function socketBroadcast(emitKey, message, callback) {
+ var playerKeys = Object.keys(players);
+ _.each(playerKeys, function(key) {
+  var player = players[key];
+  player.socket.emit(emitKey, message);
+});
+
+ if(callback) {
+  callback();
+}
 }
 
 function getPlayersSocketSafe() {
-   var playerKeys = Object.keys(players);
-   var playersSocketSafe = {};
-   _.each(playerKeys, function(key) {
-      playersSocketSafe[key] = players[key].getSocketSafe();
-   });
-   return playersSocketSafe;
+ var playerKeys = Object.keys(players);
+ var playersSocketSafe = {};
+ _.each(playerKeys, function(key) {
+  playersSocketSafe[key] = players[key].getSocketSafe();
+});
+ return playersSocketSafe;
 }
 
 function getPlayersAsList() {
-   var playerKeys = Object.keys(players);
-   var pList = [];
-   _.each(playerKeys, function(key) {
-      var player = players[key];
-      pList.push(player.getSocketSafe());
-   });
+ var playerKeys = Object.keys(players);
+ var pList = [];
+ _.each(playerKeys, function(key) {
+  var player = players[key];
+  pList.push(player.getSocketSafe());
+});
 
-   return pList;
+ return pList;
 }
 
-//server client contents statically
-app.use('/client', express.static(__dirname + '/client'));
-app.get('/', function(req, res) { res.sendfile(__dirname+'/client/game.html'); });
+setInterval(function() {
+  socketBroadcast('updatedPlayers', getPlayersSocketSafe());
+}, 10);

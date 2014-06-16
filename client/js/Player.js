@@ -31,6 +31,9 @@ var Players = (function(){
 	                    ctx.drawImage(graphics.PlayerHolder.opponentNormal, camera.translateX(i), camera.translateY(j));
 	                }
 	            }
+
+              ctx.font="12px Arial";
+              ctx.fillText(players[x].getName(), camera.translateX(i), camera.translateY(j));
 	        }
 	    }
 	}
@@ -137,6 +140,10 @@ var Player = function( properties ){
       y: properties.y
     };
   };
+
+  this.getName = function() {
+    return properties.name;
+  }
 
   this.getColor = function(){
     return properties.color;

@@ -1,7 +1,7 @@
 //server asked for my name
 socket.on('whatsYoName', function() {
-   //var name = window.prompt("What's your name?", "");
-   socket.emit('heresMyName', "");
+   var name = window.prompt("What's your name?", "");
+   socket.emit('heresMyName', name);
 });
 
 //heres your player id

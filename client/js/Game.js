@@ -41,7 +41,6 @@ var init = function(){
 var update = function(){
 	userInput.update();
 	level.update();
-	socket.emit("updatePlayers");
 }
 
 var draw = function () {
